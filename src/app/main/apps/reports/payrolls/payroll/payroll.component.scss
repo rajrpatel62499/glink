@@ -1,0 +1,97 @@
+@import 'src/@fuse/scss/fuse';
+
+#figma {
+  .center {
+    background-color: #f2f7ff;
+    padding: 0.5rem 3rem 3rem 3rem !important;
+    margin: 0 auto;
+
+    .header {
+      background-color: #f2f7ff; //figma
+
+      .h2 {
+        font-size: 3rem;
+        font-weight: bolder;
+        color: black;
+      }
+
+      .subtitle {
+        margin: 6px 0 0 0;
+      }
+    }
+
+    .filters-header {
+      @include mat-elevation(1);
+    }
+
+    .export {
+      cursor: pointer;
+      margin-right: 20px;
+      img {
+        height: 18px;
+        margin-right: 7px;
+        margin-top: 4px;
+      }
+      div {
+        height: 30px;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 140%;
+        letter-spacing: 0.337647px;
+        color: #00aeef;
+      }
+    }
+
+    .table-wrapper {
+      display: flex;
+      height: 100%;
+      width: 100%;
+      overflow: scroll;
+
+      .calendar {
+        margin: 1rem;
+
+        .demo-inline-calendar-card {
+          width: 25vw;
+        }
+      }
+
+      .calendar-card {
+        margin-left: 3rem;
+      }
+    }
+
+    @include media-breakpoint('lt-lg') {
+      padding: 0 !important;
+    }
+
+    .content-card {
+      position: relative;
+      display: flex;
+      flex: 1;
+      border-radius: 12px;
+    }
+  }
+
+  .trigger-btn {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+}
+
+.frequency-menu {
+  .mat-list-base {
+    padding-top: 0px !important;
+    display: unset !important;
+  }
+}
+
+#employee-table {
+  datatable-body {
+    height: calc(100vh - 477px) !important;
+    overflow-y: scroll !important;
+    overflow-x: hidden !important;
+  }
+
+}

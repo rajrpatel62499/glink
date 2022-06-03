@@ -1,0 +1,388 @@
+<div id="new-package" class="page-layout carded fullwidth inner-scroll">
+    <div class="top-bg accent"></div>
+    <div class="center">
+        <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@animate]="{ value: '*', params: { delay: '100ms', x: '-25px' } }">
+                    <div class="h2" translate>NAV.CREATE_PACKAGE</div>
+                    <!-- <div class="subtitle secondary-text">
+                            <span translate>Create Package</span>
+                        </div> -->
+                </div>
+            </div>
+        </div>
+        <div class="horizontal-stepper-wrapper">
+            <mat-horizontal-stepper class="mat-elevation-z4" [linear]="true" #stepper>
+
+                <mat-step [stepControl]="form">
+                    <form fxLayout="column" [formGroup]="form">
+                        <ng-template matStepLabel><span translate>COMMON.FILL_BASIC_INFORMATION</span></ng-template>
+                        <!-- <div *ngIf="!!error" class="dates" fxLayout="column" fxLayout.gt-xs="row">
+                            <span
+                            appearance="outline"
+                            floatLabel="always"
+                            class="w-100-p"
+                            class="h-100-p warn-600"
+                            >Oooops! Something went wrong. Please try again later</span
+                            >
+                            <br />
+                            <span class="h-100-p warn-600">{{ error | json }}</span>
+                        </div> -->
+                        <br />
+
+                        <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column" class="mb-12">
+                            <div fxLayout="column" fxFlex="50"  fxFlex.lt-md="100">
+                                <ng-template [ngTemplateOutlet]="employee"></ng-template>
+                                <ng-template [ngTemplateOutlet]="client"></ng-template>
+                                <ng-template [ngTemplateOutlet]="startDate"></ng-template>
+                                <ng-template [ngTemplateOutlet]="recurrence"></ng-template>
+                                <!-- <ng-template [ngTemplateOutlet]="endRadioSelections" [ngTemplateOutletContext]="{ name: 'EndSelection'}"></ng-template> -->
+                            </div>
+                            <div fxLayout="column" fxFlex="50" fxFlex.lt-md="100">
+                                <ng-template [ngTemplateOutlet]="repeatEvery"></ng-template>
+                                
+                                <div *ngIf="form.get('recurrence')?.value == 'DAILY' ">
+                                    <ng-template [ngTemplateOutlet]="punchInTime"></ng-template>
+                                </div>
+                                
+                                <div *ngIf="form.get('recurrence')?.value == 'MONTHLY' ">
+                                    <ng-template [ngTemplateOutlet]="monthly"></ng-template>
+                                    <ng-template [ngTemplateOutlet]="punchInTime"></ng-template>
+                                </div>
+                                
+                                <div *ngIf="form.get('recurrence')?.value == 'WEEKLY'">
+                                    <ng-template [ngTemplateOutlet]="weekly"></ng-template>
+                                </div>
+                                
+                                
+                                <ng-template [ngTemplateOutlet]="endRadioSelections" [ngTemplateOutletContext]="{ name: 'EndSelection'}"></ng-template>
+                                <div *ngIf="rruleOptions && rruleOptions.length > 0" class="font-weight-600 font-size-16">
+                                    {{rruleOptions[0]|recurrenceStr:result: form.get('punchInTime').value}}
+                                </div>
+                                <!-- <pre>{{result|json}}</pre>
+                                <pre>{{rruleOptions|json}}</pre> -->
+
+                            </div>
+                        </div>
+
+                        <div fxLayout="row" fxLayoutAlign="center center" class="mt-16">
+                            <button mat-raised-button matStepperNext type="button" color="accent" (click)="onNext()">
+                                <span translate>COMMON.NEXT</span>
+                            </button>
+                        </div>
+                    </form>
+                </mat-step>
+
+                <mat-step>
+                    <ng-template matStepLabel><span translate>COMMON.COMPLETED</span></ng-template>
+
+                    <!-- <div *ngIf="!success" class="h2 m-16" fxLayout="row" fxLayoutAlign="center center" translate>
+                        COMMON.CREATE_MSG
+                    </div>
+
+                    <div *ngIf="!!success" class="h2 m-16" fxLayout="row" fxLayoutAlign="center center">
+                        <span translate>COMMON.SUCCESS_MSG</span>
+                    </div>
+
+                    <div *ngIf="!!error" class="h2 m-16" fxLayout="row" fxLayoutAlign="center center">
+                        <span appearance="outline" floatLabel="always" class="w-100-p" class="h-100-p warn-600">Oooops!
+                            Something went wrong. Please try again later</span>
+                        <br />
+                        <span class="h-100-p warn-600">{{ error | json }}</span>
+                    </div>
+
+                    <div *ngIf="!success" fxLayout="row" fxLayoutAlign="center center">
+                        <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+                            <span translate>COMMON.PREVIOUS</span>
+                        </button>
+                        <button mat-raised-button type="button" color="accent" (click)="addPackage()">
+                            <span translate>COMMON.CREATE</span>
+                        </button>
+                    </div>
+                     <div *ngIf="!!success" fxLayout="row" fxLayoutAlign="center center">
+                        <button mat-raised-button type="button" color="accent" (click)="reset(stepper)">
+                            <span translate>COMMON.CREATE_ANOTHER</span>
+                        </button>
+                    </div> -->
+
+                    <div *ngIf="!apiCall?.addMultiplePackages?.success" class="h2 m-16" fxLayout="row" fxLayoutAlign="center center" translate>
+                        COMMON.CREATE_MSG
+                    </div>
+
+                    <div *ngIf="apiCall?.addMultiplePackages?.success" class="h2 m-16" fxLayout="row" fxLayoutAlign="center center">
+                        <span translate>COMMON.SUCCESS_MSG</span>
+                    </div>
+
+                    <div *ngIf="apiCall?.addMultiplePackages?.error" class="h2 m-16" fxLayout="row" fxLayoutAlign="center center">
+                        <span appearance="outline" floatLabel="always" class="w-100-p" class="h-100-p warn-600">Oooops!
+                            Something went wrong. Please try again later</span>
+                        <br />
+                        <span class="h-100-p warn-600">{{ error | json }}</span>
+                    </div>
+                    <div *ngIf="!apiCall?.addMultiplePackages?.success" fxLayout="row" fxLayoutAlign="center center">
+                        <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+                            <span translate>COMMON.PREVIOUS</span>
+                        </button>
+                        <button mat-raised-button type="button" color="accent" (click)="addPackage()">
+                            <span translate>COMMON.CREATE</span>
+                        </button>
+                    </div>
+                    <div *ngIf="apiCall?.addMultiplePackages?.success" fxLayout="row" fxLayoutAlign="center center">
+                        <button mat-raised-button type="button" color="accent" (click)="reset(stepper)">
+                            <span translate>COMMON.CREATE_ANOTHER</span>
+                        </button>
+                    </div>
+                </mat-step>
+
+            </mat-horizontal-stepper>
+        </div>
+    </div>
+</div>
+
+<ng-template #startDate>
+
+    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+        <mat-label>{{ 'SCHEDULE.START_DATE' | translate }} </mat-label>
+        <input  class="cursor-pointer" (click)="startDatePicker.open()" readonly  matInput [matDatepicker]="startDatePicker" [formControl]="form.get('startDate')"/>
+        <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #startDatePicker></mat-datepicker>
+        <mat-error >{{'SCHEDULE.START_DATE_ERR'|translate}} </mat-error>
+    </mat-form-field>
+</ng-template>
+
+
+
+<ng-template #employee>
+    <figma-autocomplete
+    class="w-100-p"
+    [label]="'COMMON.EMPLOYEE'"
+    [placeholder]="'COMMON.SELECT_CONTRACTOR_EMPLOYEE'"
+    [errorMsg]="'COMMON.SELECT_EMPLOYEE_ERR_MSG'"
+    [options]="employeeOptions"
+    [control]="form.get('employee')"
+>
+</figma-autocomplete>
+</ng-template>
+
+<ng-template #client>
+    <figma-autocomplete
+    class="w-100-p"
+    [label]="'COMMON.CLIENT'"
+    [placeholder]="'COMMON.SELECT_A_LOCATION'"
+    [options]="locationOptions"
+    [errorMsg]="'COMMON.SELECT_CLIENT_ERR_MSG'"
+    [control]="form.get('location')"
+    >
+</figma-autocomplete>
+</ng-template>
+
+<ng-template #recurrence>
+    <mat-form-field appearance="outline"  class="w-100-p" fxFlex>
+        <mat-label translate>COMMON.RECURRENCE</mat-label>
+        <mat-select [formControl]="form.get('recurrence')" >
+            <mat-option *ngFor="let r of (form.get('rList').value)" [value]="r.value"> {{r.viewValue|titlecase}}</mat-option>
+        </mat-select>
+        <mat-error translate>COMMON.RECURRENCE_ERR_MSG</mat-error>
+    </mat-form-field>
+</ng-template>
+
+<ng-template #repeatEvery> 
+    <div fxLayout="column" class="mb-24">
+        <div fxLayout="row" class="mb-8">
+            <div fxFlex="30" fxLayoutAlign="start center" class="font-size-16 font-weight-600">{{'COMMON.REPEAT_EVERY'|translate}}</div>
+            <div fxFlex="70" fxLayoutAlign="start center" class="font-size-16">
+                
+                <mat-form-field appearance="outline"  class="beautify w-80" fxFlex>
+                    <!-- <mat-label translate>COMMON.REPEAT_EVERY</mat-label> -->
+                    <mat-select [formControl]="form.get('repeatEvery')" >
+                      <mat-option *ngFor="let r of repeats" [value]="r"> {{r}}</mat-option>
+                    </mat-select>
+                    <mat-error translate>COMMON.REPEAT_EVERY_ERR_MSG</mat-error>
+                  </mat-form-field>
+                  <div class="ml-12">
+                      {{ 
+                          (form.get('recurrence').value == 'DAILY' ? 'COMMON.DAY' : 
+                          form.get('recurrence').value == 'WEEKLY' ? 'COMMON.WEEK' : 
+                          form.get('recurrence').value == 'MONTHLY' ? 'COMMON.MONTH' : '') | translate 
+                      }}
+                  </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #endRadioSelections let-name="name">
+
+    <div class="mb-24">
+        <div class="font-size-16 font-weight-600">{{'SCHEDULE.END_DATE'|translate}}</div>
+        <mat-radio-group 
+        [formControl]="endSelection"
+        fxLayout.lt-md="column"
+        [name]="name" required fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="space-evenly center" aria-label="Select an option">
+    
+            <mat-radio-button *ngFor="let item of endRadioBtnSelections" 
+                fxFlex="50"
+                [value]="item.value" 
+                [checked]="item.checked"   
+                class="w-100-p" >
+    
+                <div *ngIf="item.value == 'endDate' " >
+                    <span class="mr-24">{{'COMMON.BY'|translate}}</span>
+                    <ng-template  [ngTemplateOutlet]="endDate"  ></ng-template>
+
+                </div>
+    
+                <div *ngIf="item.value == 'occurrence' " >
+                    <span class="mr-8">{{'COMMON.AFTER'|translate}}</span>
+                    <ng-template [ngTemplateOutlet]="occurrence"></ng-template>
+                    <span class="mr-8">
+                        {{'COMMON.OCCURRENCES'|translate|lowercase}}
+                    </span>
+                </div>
+    
+            </mat-radio-button>
+            
+        </mat-radio-group>
+        
+    </div>
+    <!-- <mat-radio-group [formControl]="endSelection"  
+    fxLayout="row" fxLayoutGap="10px" 
+    fxLayout.lt-md="column"
+    fxLayoutAlign="space-evenly center"
+    [name]="name" required aria-label="Select an option">
+
+        <mat-radio-button *ngFor="let item of endRadioBtnSelections" 
+            fxFlex="50"
+            fxFlex.lt-md="100"
+            [value]="item.value" 
+            [checked]="item.checked"   
+            class="w-100-p" >
+            <div *ngIf="item.value == 'endDate' ">
+                <ng-template  [ngTemplateOutlet]="endDate"  ></ng-template>
+            </div>
+            <div *ngIf="item.value == 'occurrence' " >
+                <ng-template [ngTemplateOutlet]="occurrence"></ng-template>
+            </div>
+           
+        </mat-radio-button>
+        
+    </mat-radio-group> -->
+
+</ng-template>
+
+<ng-template #endDate>
+
+    <mat-form-field appearance="outline" floatLabel="always" class="beautify w-148"  >
+        <!-- <mat-label>{{ 'SCHEDULE.END_DATE' | translate }} </mat-label> -->
+        <input class="cursor-pointer" (click)="endDatePicker.open()" readonly matInput 
+        [min]="form.get('startDate').value"
+        [matDatepicker]="endDatePicker" [formControl]="form.get('endDate')"/>
+        <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #endDatePicker></mat-datepicker>
+        <mat-error >{{'SCHEDULE.END_DATE_ERR'|translate}} </mat-error>
+    </mat-form-field>
+
+</ng-template>
+
+<ng-template #occurrence>
+    <mat-form-field appearance="outline" floatLabel="always" class="beautify w-80"   >
+        <!-- <mat-label translate>COMMON.OCCURRENCES</mat-label> -->
+        <mat-select  [formControl]="form.get('occurrence')" >
+            <mat-option *ngFor="let r of repeats" [value]="r"> {{r}}</mat-option>
+        </mat-select>
+        <mat-error translate>COMMON.OCCURRENCES_ERR_MSG</mat-error>
+    </mat-form-field>
+</ng-template>
+
+<ng-template #punchInTime>
+    <div fxLayout="column" fxLayoutAlign="space-evenly" class="mb-24">
+        <div fxFlex="50" class="font-size-16 font-weight-600 mb-8">
+            {{'COMMON.PUNCH_IN_TIME_LIMIT'|translate}}
+        </div>
+        <div fxFlex="50">
+            <mat-form-field appearance="outline" class="beautify w-132" fxFlex>
+                <!-- <mat-label translate>COMMON.EXPIRED_TIME</mat-label> -->
+                <input matInput [formControl]="form.get('punchInTime')" type="time" />
+            </mat-form-field>
+                <!-- placeholder="{{ 'COMMON.EXPIRED_TIME' | translate }}" -->
+        </div>
+    </div>
+    
+</ng-template>
+
+<ng-template #monthly>
+    <div class="mb-24">
+        <div class="font-size-16 font-weight-600">{{ 'COMMON.OCCURS_ON' | translate}}</div>
+        <mat-radio-group 
+        [formControl]="monthlySelection"
+        fxLayout.lt-md="column"
+        [name]="name" required fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="space-evenly center" aria-label="Select an option">
+    
+            <mat-radio-button *ngFor="let item of monthlyRadioBtnSelections" 
+                fxFlex="50"
+                [value]="item.value" 
+                [checked]="item.checked"   
+                class="w-100-p" >
+    
+                <div *ngIf="item.value == 'byDayCount' " >
+                    <span class="mr-12">{{ 'COMMON.DAY' | translate}}</span>
+                    
+                    <mat-form-field class="beautify w-80" appearance="outline" floatLabel="always" >
+                        <mat-select [value]="1" [formControl]="form.get('monthly.byDayCount')">
+                            <mat-option *ngFor="let r of form.get('monthly.dayCounts').value" [value]="r"> {{r}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <span>
+                        {{ 'COMMON.OF_THE_MONTH' | translate}}
+                    </span>
+                </div>
+    
+                <div *ngIf="item.value == 'byDay' " >
+                    <mat-form-field class="beautify mr-12 w-136" appearance="outline" floatLabel="always">
+                        <mat-select [formControl]="form.get('monthly.dayName')">
+                            <mat-option  *ngFor="let r of form.get('monthly.dayOfMonths').value" [value]="r.id"  > {{r.viewValue|translate}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="beautify mr-8 w-136" appearance="outline" floatLabel="always">
+                        <mat-select [formControl]="form.get('monthly.weekDay')">
+                            <mat-option *ngFor="let r of form.get('monthly.allWeeks').value" [value]="r.value"> {{r.viewValue|titlecase}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <span>
+                        {{ 'COMMON.OF_THE_MONTH' | translate}}
+                    </span>
+                </div>
+    
+            </mat-radio-button>
+            
+        </mat-radio-group>
+        
+    </div>
+</ng-template>
+
+<ng-template #weekly>
+    <div fxLayout="column" class="mb-24">
+        <div fxLayout="row" class="mb-8">
+            <div fxFlex="30" class="font-size-16 font-weight-600">{{ 'COMMON.OCCURS_ON' | translate}}</div>
+            <div fxFlex="70" class="font-size-16 font-weight-600">
+                {{'COMMON.PUNCH_IN_TIME_LIMIT'|translate}}
+            </div>
+        </div>
+        <ng-container *ngFor="let item of form.get('weekly.weeks').value">
+            <div fxLayout="row">
+                <div fxFlex="30" fxLayoutAlign="start center" class="font-size-16">
+                    <mat-checkbox class="mr-12" [(ngModel)]="item.checked" (ngModelChange)="updateSchedule()"></mat-checkbox>
+                    <span>{{ item.viewValue|translate|titlecase }}</span>
+                </div>
+                <div fxFlex="70">
+                    <mat-form-field appearance="outline" class="beautify w-132" fxFlex>
+                        <!-- <mat-label translate>COMMON.EXPIRED_TIME</mat-label> -->
+                        <input [(ngModel)]="item.time" (ngModelChange)="updateSchedule()" matInput type="time" />
+                    </mat-form-field>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</ng-template>

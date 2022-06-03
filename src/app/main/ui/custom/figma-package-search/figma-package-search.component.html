@@ -1,0 +1,84 @@
+<!-- 
+  <div class="header-wrapper" fxLayout="column" fxLayout.gt-xs="column">
+    <div class="header-selection" fxFlex="row" fxLayoutAlign="center center">
+      <h5 class="title">Sélectionnez un élément pour afficher plus de détails.</h5>
+      <div class="info" fxFlex fxFlexLayout="column">
+        <span></span>
+      </div>
+      <div class="info" fxFlex fxFlexLayout="column">
+        <span></span>
+      </div>
+      <mat-form-field appearance="" class="dates mt-20 mr-sm-4">
+        <mat-label>Plage de dates</mat-label>
+        <mat-date-range-input [rangePicker]="myRangePicker">
+          <input
+            matStartDate
+            placeholder="Start date"
+            [formControl]="dateRangeStartInput"
+          />
+          <input matEndDate placeholder="End date" [formControl]="dateRangeEndInput" />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="myRangePicker"></mat-datepicker-toggle>
+        <mat-date-range-picker #myRangePicker></mat-date-range-picker>
+      </mat-form-field>
+    </div>
+  </div> -->
+
+
+  <div class="contact" ngClass="{'unread':contact.unread}" [@animate]="{ value: '*', params: { y: '100%' } }">
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <!-- <div class="avatar-wrapper" fxFlex="0 1 auto" fxLayoutAlign="center center">
+        <mat-icon>label</mat-icon>
+      </div> -->
+      
+      <div fxLayout="row" fxFlex>
+        <div
+          class="pr-4 ml-24 chip-schedule-item"
+          fxFlex
+          fxLayout="column"
+          fxLayoutAlign="center start"
+        >
+          <p translate>SCHEDULE.TITLE</p>
+          <!-- <div class="title-type">{{ item.status }}</div> -->
+        </div>
+  
+        <div fxLayout="row" class="right-item" fxLayoutAlign="space-around center">
+          <!-- <ng-container *ngFor="let time of item.suggestedTimes; index as i">
+            <ng-container
+              [ngTemplateOutlet]="time !== '' ? working : off"
+              [ngTemplateOutletContext]="{ time: time, index: i }"
+            >
+            </ng-container>
+          </ng-container>
+          <ng-template #working let-time="time" let-index="index">
+            <div *ngIf="time !== ''; else dayoffBlock" class="chip-employee-item selected">
+              <p>{{ days[index] }}</p>
+              <p>{{ time }}</p>
+            </div>
+          </ng-template>
+  
+          <ng-template #off let-time="time" let-index="index">
+            <div class="chip-employee-item">
+              <p>{{ days[index] }}</p>
+              <p class="off">OFF</p>
+            </div>
+          </ng-template> -->
+  
+          <mat-form-field appearance="" class="chip-schedule-item">
+            <mat-label translate>SCHEDULE.DATE_RANGE</mat-label>
+            <mat-date-range-input [rangePicker]="myRangePicker">
+              <input
+                matStartDate
+                placeholder="{{'SCHEDULE.START_DATE' | translate}}"
+                [formControl]="dateRangeStartInput"
+              />
+              <input matEndDate placeholder="{{'SCHEDULE.END_DATE' | translate}}" [formControl]="dateRangeEndInput" />
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="myRangePicker"></mat-datepicker-toggle>
+            <mat-date-range-picker #myRangePicker></mat-date-range-picker>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+  

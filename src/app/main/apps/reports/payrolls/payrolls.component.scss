@@ -1,0 +1,81 @@
+@import "src/@fuse/scss/fuse";
+#timesheets {
+    .center {
+      background-color: #f2f7ff; //figma
+    }
+  
+    .header {
+      background-color: #f2f7ff; //figma
+  
+      .h2 {
+        font-size: 3rem;
+        font-weight: bolder;
+        color: black;
+      }
+  
+      .subtitle {
+        margin: 6px 0 0 0;
+      }
+    }
+
+    .rc-card {
+
+      &:hover {
+        @include mat-elevation(2);
+        cursor: pointer;
+      }
+      
+      &.rc-card-disabled {
+        @include mat-elevation(0);
+        cursor: default;
+        opacity: 0.6;
+      }
+
+        
+      width: 250px;
+      min-height: 310px;
+      margin: 25px;
+      border: 1px solid #BBE0F7;
+      box-shadow: 0px 3px 8px rgb(28 161 243 / 10%), 0px 1px 1px rgb(28 161 243 / 1%), 0px 3px 1px rgb(28 161 243 / 3%);
+      border-radius: 4px;
+      img {
+        border-bottom: 1px solid #BBE0F7;
+      }
+      .rc-content  {
+        padding: 10px 15px 15px 15px;
+        .rc-title {
+          color: #1F4D7A;
+          font-weight: bold;
+          font-size: 18px;
+          line-height: 130%;
+          letter-spacing: 0.337647px;
+        }
+        .rc-desc {
+          font-weight: normal;
+          font-size: 16px;
+          line-height: 150%;
+          letter-spacing: 0.337647px;
+          color: rgba(60, 60, 67, 0.7);
+        }
+      }
+    }
+
+
+}
+  
+  .dates {
+    .mat-form-field {
+      margin: 0rem 1rem 0rem 1rem;
+    }
+  }
+  
+  .error {
+    margin-left: 3rem;
+  }
+  
+  
+  .demo-inline-calendar-card {
+    width: 40%;
+    background-color: red;
+  }
+  

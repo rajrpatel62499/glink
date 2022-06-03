@@ -1,0 +1,156 @@
+<div id="figma" class="page-layout carded fullwidth inner-scroll">
+    <div class="top-bg white"></div>
+    <div class="center">
+      <app-figma-header [header]="header" (back)="onClickBack()"></app-figma-header>
+      <div class="content-card">
+        <div
+          fxLayout="row"
+          fxLayoutGap="15px"
+          fxLayoutAlign="start center"
+          class="filters-header p-16 border"
+        >
+          <div>{{ 'COMMON.FILTERED_BY' | translate }}</div>
+          <figma-search-dropdown
+          [title]="'COMMON.BANNERS'"
+          [data]="bannerSelections"
+          (close)="onBannerSelectionChange($event)"
+        ></figma-search-dropdown>
+          <figma-search-dropdown
+            [title]="'COMMON.CLIENTS'"
+            [data]="clientsSelections"
+            (close)="onClientDropdownClose($event)"
+          ></figma-search-dropdown>
+          <!-- <figma-search-dropdown
+            [title]="'COMMON.EMPLOYEES'"
+            [data]="employeeSelections"
+            (close)="onEmployeeDropdownClose($event)"
+          >
+          </figma-search-dropdown> -->
+          <figma-search-dropdown
+            [title]="'Types'"
+            [data]="typeListSelections"
+            [dropdownFlavors]="'multiselect'"
+            [selectionListClass]="'remove-padding'"
+            [panelClass]="''"
+            (close)="onEmployeeDropdownClose($event)"
+          ></figma-search-dropdown>
+          <figma-search-dropdown
+          [title]="'Categories'"
+          [data]="categoriesSelections"
+          [dropdownFlavors]="'multiselect'"
+          [selectionListClass]="'remove-padding'"
+          [panelClass]="'w-172'"
+          (close)="onEmployeeDropdownClose($event)"
+        ></figma-search-dropdown>
+        </div>
+  
+        <div fxLayout="row" fxLayoutAlign="space-between" class="p-16">
+          <div fxLayout="row">
+            <figma-date-picker
+              [range]="range"
+              [required]="true"
+              (closed)="onDatePickerClose($event)"
+              class="mr-20"
+            ></figma-date-picker>
+  
+            <div fxLayout="column">
+              <div class="time-title">{{ 'COMMON.TOTAL_OF_PICTURES' | translate | uppercase }}</div>
+              <div class="time" >{{ totalPictures }}</div>
+            </div>
+          </div>
+          <!-- <div fxLayout="row" class="export">
+            <img
+              style="height: 18px"
+              class="mr-12"
+              src="assets/images/reports/export.svg"
+              alt=""
+              srcset=""
+            />
+            <div [matMenuTriggerFor]="exportOptions">{{ 'COMMON.EXPORT' | translate }}</div>
+            <mat-menu #exportOptions [class]="'custom-mat-menu-items'">
+              <button mat-menu-item (click)="download('pdf')">
+                {{ 'COMMON.DOWNLOAD' | translate }} PDF
+              </button>
+              <button mat-menu-item (click)="download('csv')">
+                {{ 'COMMON.DOWNLOAD' | translate }} CSV
+              </button>
+              <button mat-menu-item (click)="download('excel')">
+                {{ 'COMMON.DOWNLOAD' | translate }} Excel
+              </button>
+            </mat-menu>
+          </div> -->
+        </div>
+  
+        <div class="breakdown-of-hours">
+          {{ 'REPORTS.PICTURE_EXTRACTION' | translate }}
+        </div>
+  
+        <ngx-datatable
+          id="employee-table"
+          style="top: 10px; box-shadow: none"
+          class="material"
+          [rows]="rows"
+          [columns]="columns"
+          [columnMode]="ColumnMode.force"
+          [headerHeight]="headerHeight"
+          [rowHeight]="'auto'"
+          [footerHeight]="footerHeight"
+          [externalSorting]="true"
+          [loadingIndicator]="loadingIndicator"
+          (scroll)="onScroll($event)"
+          (sort)="onSort($event)"
+
+        >
+  
+          <ngx-datatable-column [name]="'COMMON.DATE_TIME'|translate|uppercase" [sortable]="true">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <span>{{ row?.date ? (row.date * 1000|date: 'MM/dd/yyyy') : '-' }}</span>
+              <div style="margin-top: 5px;">{{ row?.date ? (row.date * 1000 | date: 'hh:mm a') : '-' }}</div>
+            
+            </ng-template>
+          </ngx-datatable-column>
+  
+          <ngx-datatable-column [name]=" 'COMMON.CLIENT' | translate|uppercase" [sortable]="true">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+              <span>{{ row?.client }}</span>
+            </ng-template>
+          </ngx-datatable-column>
+  
+          <ngx-datatable-column [name]="'COMMON.TITLE'|translate|uppercase" [sortable]="true">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <span> {{ row?.title }}</span>
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column [name]="'COMMON.CATEGORY'|translate|uppercase" [sortable]="true">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <div *ngIf="row?.category" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon fxLayout="column" fxLayoutAlign="center" style="font-size:18px">description</mat-icon>
+                <span  
+                [style.color]="row?.category|GetCategoryColorCodePipe:'text'"
+                [style.background-color]="row?.category|GetCategoryColorCodePipe: 'background'"
+                class="image-category"> {{ row?.category }}</span>
+              </div>
+              <div *ngIf="!row?.category">-</div>
+            </ng-template>
+          </ngx-datatable-column>
+  
+          <ngx-datatable-column name="PHOTOS" [sortable]="true">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <ng-container *ngIf="(row?.images) && (row?.images.length > 0)">
+                <div fxLayout="row" fxLayoutGap="7px" fxLayoutAlign="start center">
+                  <ng-container *ngFor="let img of row?.images; index as imgIndex">
+                    <img style="height: 20px; width: 20px;" *ngIf="imgIndex < 3" [src]="img" alt="">
+                  </ng-container>
+                </div>
+                <div class="view-all" (click)="openModal(row)"> View all</div>
+              </ng-container>
+              <div *ngIf="(!row?.images) || (row?.images.length == 0)"> - </div>
+
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,17 @@
+<div class="sidenav-content" fusePerfectScrollbar fxFlex>
+  <div *fuseIfOnDom [@animateStagger]="{ value: '50' }">
+    <div class="figma-list" fxLayout="column">
+      <app-figma-task-search
+        fxFill
+        (searchChanged)="onSearchChanged($event)"
+      ></app-figma-task-search>
+
+      <app-figma-task-list-header></app-figma-task-list-header>
+      <app-figma-chip-task
+        *ngFor="let figma of figmas | filter: searchText"
+        [item]="figma"
+        (click)="onClickChip(figma)"
+      ></app-figma-chip-task>
+    </div>
+  </div>
+</div>

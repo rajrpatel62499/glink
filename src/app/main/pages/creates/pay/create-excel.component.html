@@ -1,0 +1,161 @@
+<div id="product" class="page-layout carded fullwidth inner-scroll">
+  <div class="top-bg accent"></div>
+
+  <!-- CENTER -->
+  <div class="center">
+    <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <div
+          fxLayout="column"
+          fxLayoutAlign="start start"
+          [@animate]="{ value: '*', params: { delay: '100ms', x: '-25px' } }"
+        >
+          <div class="h2" *ngIf="pageType === 'new'" translate>PAY.PAYSLIP</div>
+          <div class="subtitle secondary-text">
+            <!-- <span translate>PAY.SUB_TITLE</span> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="horizontal-stepper-wrapper">
+      <mat-horizontal-stepper class="mat-elevation-z4" [linear]="true" #stepper>
+        <mat-step [stepControl]="horizontalStepperStep1">
+          <form fxLayout="column" [formGroup]="horizontalStepperStep1">
+            <ng-template matStepLabel><span translate>PAY.CHOOSE_LAST_PAYDAY</span></ng-template>
+            <div *ngIf="!!error" class="dates" fxLayout="column" fxLayout.gt-xs="row">
+              <span
+                appearance="outline"
+                floatLabel="always"
+                class="w-100-p"
+                class="h-100-p warn-600"
+                >Oooops! Something went wrong. Please try again later</span
+              >
+              <br />
+              <span class="h-100-p warn-600">{{ error | json }}</span>
+            </div>
+            <br />
+
+            <div fxFlex="1 0 auto" fxLayout="column" fxLayout.gt-xs="row">
+              <!-- DO NOT DELETE, Will need SUPERVISOR in the future-->
+              <!-- <mat-form-field appearance="outline" class="mr-sm-12" fxFlex disabled>
+                <mat-label>Superviseur</mat-label>
+                <mat-select formControlName="supervisor" required disabled>
+                  <mat-option
+                    *ngFor="let supervisor of supervisors"
+                    [value]="supervisor._id"
+                    [disabled]="!isEditMode && formType === 'edit'"
+                    >{{ supervisor.username }}</mat-option
+                  >
+                </mat-select>
+                <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+                <mat-error>Superviseur est requis!</mat-error>
+              </mat-form-field> -->
+            </div>
+
+            <div class="calendar-wrapper" fxLayout="row" fxLayoutAlign="start center">
+              <div
+                class="calendar"
+                fxLayoutAlign="center center"
+                fxLayout="row"
+                fxLayout.gt-xs="row"
+              >
+                <mat-card class="demo-inline-calendar-card">
+                  <mat-calendar
+                    (selectedChange)="onCalendarChange($event)"
+                    [dateFilter]="myFilter"
+                    [selected]="selected"
+                    [minDate]="minDate"
+                    [maxDate]="maxDate"
+                  ></mat-calendar>
+                </mat-card>
+              </div>
+
+              <div
+                class="details-first mr-12 ml-24"
+                fxLayoutAlign="space-between start"
+                fxLayout="column"
+                fxLayout.gt-xs="column"
+              >
+                <p translate>PAY.START</p>
+                <p [ngClass]="!errorCalendar ? 'secondary-text' : 'warn-600-fg'" translate>
+                  {{ selectedStart ? selectedStart : 'PAY.SELECT_MSG' }}
+                </p>
+              </div>
+
+              <div
+                class="details-second"
+                fxLayoutAlign="space-between start"
+                fxLayout="column"
+                fxLayout.gt-xs="column"
+              >
+                <p translate>PAY.END</p>
+                <p [ngClass]="!errorCalendar ? 'secondary-text' : 'warn-600-fg'" translate>
+                  {{ selectedEnd ? selectedEnd : 'PAY.SELECT_MSG' }}
+                </p>
+              </div>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <button
+                mat-raised-button
+                matStepperNext
+                (click)="onClickNext()"
+                type="button"
+                color="accent"
+              >
+                <span translate>COMMON.NEXT</span>
+              </button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel><span translate>COMMON.COMPLETED</span></ng-template>
+
+          <div *ngIf="!downloadUrl" class="h2 m-16" fxLayout="row" fxLayoutAlign="center center" translate>
+            PAY.GENERATE_TO_CONTINUE
+          </div>
+
+          <div *ngIf="!!downloadUrl" class="h2 m-16" fxLayout="row" fxLayoutAlign="center center">
+            <a mat-raised-button class="reference-button mt-16 mt-sm-0" [href]="downloadUrl">
+              <mat-icon class="mr-8">link</mat-icon>
+              <span translate>PAY.DOWNLOAD</span>
+            </a>
+          </div>
+
+          <div *ngIf="!!error" class="h2 m-16" fxLayout="row" fxLayoutAlign="center center">
+            <span appearance="outline" floatLabel="always" class="w-100-p" class="h-100-p warn-600"
+              >Oooops! Something went wrong. Please try again later</span
+            >
+            <br />
+            <span class="h-100-p warn-600">{{ error | json }}</span>
+          </div>
+
+          <div *ngIf="!success" fxLayout="row" fxLayoutAlign="center center">
+            <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+              <span translate>COMMON.PREVIOUS</span>
+            </button>
+            <button
+              mat-raised-button
+              type="button"
+              color="accent"
+              (click)="downloadCurrentSchedule()"
+            >
+              <span translate>PAY.GENERATE</span>
+            </button>
+          </div>
+          <div *ngIf="!!success" fxLayout="row" fxLayoutAlign="center center">
+            <button
+              mat-raised-button
+              type="button"
+              color="accent"
+              (click)="stepper.reset(); reset()"
+            >
+              <span translate>PAY.SUBMIT</span>
+            </button>
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+    </div>
+  </div>
+</div>

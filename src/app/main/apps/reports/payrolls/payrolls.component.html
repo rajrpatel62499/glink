@@ -1,0 +1,51 @@
+<div id="timesheets" class="page-layout carded fullwidth inner-scroll">
+    <div class="top-bg accent"></div>
+  
+    <!-- CENTER -->
+    <div class="center">
+
+      <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <div
+            fxLayout="column"
+            fxLayoutAlign="start start"
+            [@animate]="{ value: '*', params: { delay: '100ms', x: '-25px' } }"
+          >
+            <div class="h2" >{{'COMMON.REPORTS'|translate}}</div>
+            <div class="subtitle secondary-text">
+              <span translate>REPORTS.FINANCE.NAME</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="content-card">
+        
+        <div class="rc-wrapper"  fxLayout="row">
+
+          <ng-container *ngFor="let card of cards">
+            <ng-template [ngTemplateOutlet]="reportCard"  [ngTemplateOutletContext]="{item: card}"></ng-template>
+          </ng-container>
+        
+        </div>
+        
+      </div>
+
+    </div>
+
+
+    
+  </div>
+
+
+  <ng-template #reportCard let-item="item">
+    <div  class="rc-card"  [ngClass]="{ 'rc-card-disabled': item.disabled}" (click)="onClickOfCard(item)">
+      <img [src]="item.img" alt="">
+      <div class="rc-content">
+        <div class="rc-title">{{item?.title|translate}}</div>
+        <div class="rc-desc"> 
+          {{item?.desc|translate}}
+        </div>
+      </div>
+    </div>
+  </ng-template>

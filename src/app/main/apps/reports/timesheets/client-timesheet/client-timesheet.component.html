@@ -1,0 +1,101 @@
+<div id="figma" class="page-layout carded fullwidth inner-scroll">
+  <div class="top-bg white"></div>
+  <div class="center">
+    <app-figma-header [header]="header" (back)="onClickBack()"></app-figma-header>
+    <div class="content-card">
+      <div
+        fxLayout="row"
+        fxLayoutGap="15px"
+        fxLayoutAlign="start center"
+        class="filters-header p-16 border"
+      >
+        <div>{{ 'COMMON.FILTERED_BY' | translate }}</div>
+        <figma-search-dropdown
+          [title]="'COMMON.BANNERS'"
+          [data]="bannerSelections"
+          (close)="onBannerSelectionChange($event)"
+        ></figma-search-dropdown>
+        <figma-search-dropdown
+          [title]="'COMMON.CLIENTS'"
+          [data]="clientSelections"
+          (close)="onClientDropownClose($event)"
+        ></figma-search-dropdown>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-between" class="p-16">
+        <div fxLayout="row">
+          <figma-date-picker 
+          [range]="range"
+          [required]="true"
+          (closed)="onDatePickerClose($event)"
+          class="mr-20"
+          ></figma-date-picker>
+
+          <div fxLayout="column">
+            <div class="time-title">{{ 'COMMON.TOTAL_HOURS' | translate | uppercase }}</div>
+            <div class="time">{{totalTime}}</div>
+          </div>
+        </div>
+        <div fxLayout="row" class="export">
+          <img
+            style="height: 18px"
+            class="mr-12"
+            src="assets/images/reports/export.svg"
+            alt=""
+            srcset=""
+          />
+          <div [matMenuTriggerFor]="exportOptions">{{ 'COMMON.EXPORT' | translate }}</div>
+          <mat-menu #exportOptions [class]="'custom-mat-menu-items'">
+            <button mat-menu-item (click)="download('pdf')">{{ 'COMMON.DOWNLOAD' | translate }} PDF</button>
+            <button mat-menu-item (click)="download('csv')">{{ 'COMMON.DOWNLOAD' | translate }} CSV</button>
+            <button mat-menu-item (click)="download('excel')">{{ 'COMMON.DOWNLOAD' | translate }} Excel</button>
+          </mat-menu>
+        </div>
+      </div>
+
+      <div class="breakdown-of-hours">
+        {{ 'REPORTS.BREAKDOWN_OF_HOURS' | translate }}
+      </div>
+
+      <ngx-datatable 
+      id="client-table"
+      style="top: 10px; box-shadow: none;"
+      class="material "
+      [rows]="rows" 
+      [columns]="columns"
+      [columnMode]="ColumnMode.force"
+      [headerHeight]="headerHeight"
+      [rowHeight]="'auto'"
+      [footerHeight]="footerHeight"
+      [loadingIndicator]="loadingIndicator"
+      [externalSorting]="true"
+      (scroll)="onScroll($event)"
+      (sort)="onSort($event)"
+      > 
+    
+      <ngx-datatable-column [name]=" 'COMMON.BANNER' | translate|uppercase" [sortable]="true" >
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <span>{{ row?.banner }}</span>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column [name]="'COMMON.CLIENT' | translate|uppercase" [sortable]="true">
+
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <span> {{ row?.propertyName }}</span>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column [name]="'COMMON.TIME' | translate|uppercase" [sortable]="true">
+
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <span> {{ row?.time }}</span>
+        </ng-template>
+      </ngx-datatable-column>
+    
+    </ngx-datatable>
+
+    
+    </div>
+  </div>
+</div>

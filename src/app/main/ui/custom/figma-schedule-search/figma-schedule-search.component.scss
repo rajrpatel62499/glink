@@ -1,0 +1,53 @@
+app-figma-schedule-search {
+  .mat-subheader {
+    padding-left: 16px;
+    font-size: 20px;
+    font-weight: 300;
+    height: 88px;
+    line-height: 88px;
+  }
+
+  .contact {
+    white-space: normal;
+    text-align: left;
+    letter-spacing: 0.01em;
+    min-height: 68px;
+    padding: 1rem 2rem 1rem 2rem;
+    margin: 0rem 1rem 0.25rem 2.5rem;
+    font-weight: 400;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background-color: black !important;
+    color: white !important;
+    min-width: 95%;
+    max-width: 95%;
+  }
+
+  .right-item {
+    margin-left: 1rem;
+    font-weight: 500;
+    width: 30%;
+    .chip-schedule-item {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-content: center;
+      align-items: center;
+      font-weight: lighter;
+    }
+
+    .mat-form-field {
+      background-color: white;
+      padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+      border-radius: 0.5rem;
+      color: black;
+    }
+  }
+  p {
+    padding: 0;
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+}

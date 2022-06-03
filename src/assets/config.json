@@ -1,0 +1,7 @@
+{
+  "baseURL": "https://webapi-dev.g-link.ca/",
+  "socketURL": "https://webapi-dev.g-link.ca/",
+  "server": "anka-dev",
+  "company": "Development",
+  "theme": "theme-ankagreen"
+}

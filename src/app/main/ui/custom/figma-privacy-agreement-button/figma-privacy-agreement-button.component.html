@@ -1,0 +1,23 @@
+<form name="privacyAgreementForm" [formGroup]="privacyAgreementForm" novalidate>
+    <div class="row text-center">
+      <button
+        mat-raised-button
+        color="accent"
+        class="subscribe-button accent mr-1"
+        aria-label="ACCEPT"
+        (click)="accept()"
+      >
+      <span translate>PRIVACY_AGREEMENT.ACCEPT</span>
+      </button>
+
+      <button
+        mat-raised-button
+        color="accent"
+        class="subscribe-button red-600 secondary-text ml-1"
+        aria-label="CANCEL"
+        (click)="decline()"
+      >
+      <span translate>PRIVACY_AGREEMENT.DECLINE</span>
+      </button>
+    </div>
+  </form>

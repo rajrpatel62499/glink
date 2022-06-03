@@ -1,0 +1,81 @@
+<button
+  mat-button
+  class="contact"
+  [ngClass]="{ 'custom-background': item.status === 'REGULAR' }"
+  [@animate]="{ value: '*', params: { y: '100%' } }"
+>
+  <div fxLayout="row" fxLayoutAlign="start center">
+    <!-- <div class="avatar-wrapper" fxFlex="0 1 auto" fxLayoutAlign="center center">
+      <mat-icon>label</mat-icon>
+    </div> -->
+
+    
+    <div fxLayout="row" fxFlex>
+      <!-- <div class="pr-4 ml-24" fxFlex fxLayout="column" fxLayoutAlign="center start">
+        <div class="contact-name">{{ item.employee.first }} {{ item.employee.last }}</div>
+        <div class="title-type" *ngIf="item.status === 'REGULAR'" translate>SCHEDULE.REGULAR</div>
+        <div class="title-type" *ngIf="item.status === 'HOLIDAY-WORK'" translate>
+          SCHEDULE.HOLIDAY_WORK
+        </div>
+        <div class="title-type" *ngIf="item.status === 'HOLIDAY-OFF'" translate>
+          SCHEDULE.HOLIDAY_OFF
+        </div>
+        <div class="title-type" *ngIf="item.status === 'OFF'" translate>SCHEDULE.OFF</div>
+        <div class="title-type" *ngIf="item.status === 'VACATION'" translate>SCHEDULE.VACATION</div>
+        <div class="title-type" *ngIf="item.status === 'ABSENT'" translate>SCHEDULE.ABSENT</div>
+        <div class="title-type" *ngIf="item.status === 'EXCUSED'" translate>SCHEDULE.EXCUSED</div>
+        <div class="title-type" *ngIf="item.status === 'SICK'" translate>SCHEDULE.SICK</div>
+        <div class="title-type" *ngIf="item.status === 'UNKNOWN'" translate>SCHEDULE.UNKNOWN</div>
+        <div class="title-type" *ngIf="item.status === 'PERSONAL'" translate>SCHEDULE.PERSONAL</div>
+      </div> -->
+      <div class="pr-4 ml-24" fxFlex fxLayout="column" fxLayoutAlign="center start">
+        <div class="contact-name">{{ item?.location?.name }}</div>
+        <!-- <div class="title-type">{{ item.description }}</div> -->
+      </div>
+      <div fxLayout="row" class="right-item" fxLayoutAlign="space-around center">
+        <!-- <ng-container *ngFor="let time of item.suggestedTimes; index as i">
+          <ng-container
+            [ngTemplateOutlet]="time !== '' ? working : off"
+            [ngTemplateOutletContext]="{ time: time, index: i }"
+          >
+          </ng-container>
+        </ng-container>
+        <ng-template #working let-time="time" let-index="index">
+          <div *ngIf="time !== ''; else dayoffBlock" class="chip-employee-item selected">
+            <p>{{ days[index] }}</p>
+            <p>{{ time }}</p>
+          </div>
+        </ng-template>
+
+        <ng-template #off let-time="time" let-index="index">
+          <div class="chip-employee-item">
+            <p>{{ days[index] }}</p>
+            <p class="off">OFF</p>
+          </div>
+        </ng-template> -->
+        <!-- <div class="chip-schedule-item contact-name" style="color: black;">{{ item?.location?.name }} </div> -->
+        <div class="chip-schedule-item">
+          <p class="contact-name" style="font-weight: unset; font-size: 1.8rem;">{{ item.employee.first }} {{ item.employee.last }}</p>
+        </div>
+        
+        <div class="chip-schedule-item">
+          <p>{{ item.punchIn | date: 'h:mm a' }}</p>
+          <p>{{ item.punchIn | date: 'MM/dd/yy' }}</p>
+      
+          <!-- <p class="punch-in">{{ item.punchIn | date: 'h:mm a' }}</p> -->
+        </div>
+        <div class="chip-schedule-item">
+          <p>{{ item.timeStart | date: 'h:mm a' }}</p>
+          <p>{{ item.timeStart | date: 'MM/dd/yy' }}</p>
+        </div>
+        <!-- <div class="chip-schedule-item">
+          <p>{{ item.timeEnd | date: 'MM/dd/yy' }}</p>
+          <p>{{ item.timeEnd | date: 'h:mm a' }}</p>
+        </div> -->
+        <!-- <div class="chip-schedule-item">
+          <p class="punch-out">{{ item.punchOut | date: 'h:mm a' }}</p>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</button>

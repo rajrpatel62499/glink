@@ -1,0 +1,50 @@
+<button
+  mat-button
+  class="contact"
+  ngClass="{'unread':contact.unread}"
+  [@animate]="{ value: '*', params: { y: '100%' } }"
+>
+  <div fxLayout="row" fxLayoutAlign="start center">
+    <div fxLayout="row" fxFlex>
+      <div class="pr-4 ml-24" fxFlex fxLayout="column" fxLayoutAlign="center start">
+        <div class="contact-name">{{ item.title }}</div>
+        <div class="title-type">{{ item.description }}</div>
+      </div>
+
+      <div fxLayout="row" class="right-item" fxLayoutAlign="space-around center">
+        <div class="chip-task-item">
+          <p>{{ item.dateStart | date: 'MM/dd/yy' }}</p>
+          <p>{{ item.dateStart | date: 'h:mm a' }}</p>
+        </div>
+        <div class="chip-task-item">
+          <p>{{ item.dateEnd | date: 'MM/dd/yy' }}</p>
+          <p>{{ item.dateEnd | date: 'h:mm a' }}</p>
+        </div>
+        <div class="chip-task-item">
+          <p
+            [ngClass]="{
+              'green-700-fg': item.recurrence === 'SINGLE',
+              'cyan-500-fg': item.recurrence === 'WEEKLY',
+              'indigo-300-fg': item.recurrence === 'MONTHLY'
+            }"
+          >
+            {{ item.recurrence }}
+          </p>
+          <p
+            [ngClass]="{
+              'red-700-fg': item.status === 'NEW',
+              'green-700-fg': item.status === 'COMPLETED'
+            }"
+          >
+            {{ item.status }}
+          </p>
+        </div>
+        <div class="chip-task-item">
+          <button mat-icon-button aria-label="Toggle important" fxHide.xs>
+            <mat-icon class="green-fg" *ngIf="!!item.isImageRequired">check_box</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</button>

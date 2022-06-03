@@ -1,0 +1,151 @@
+app-figma-chip-package {
+
+  .mat-subheader {
+    padding-left: 16px;
+    font-size: 20px;
+    font-weight: 300;
+    height: 88px;
+    line-height: 88px;
+  }
+
+  .contact {
+    white-space: normal;
+    text-align: left;
+    letter-spacing: 0.01em;
+    min-height: 88px;
+    // border-bottom: 1px solid;
+    padding: 2rem 2rem 2rem 2rem;
+    margin: 1rem 1rem 1rem 2.5rem;
+    font-weight: 400;
+    border-radius: 0;
+    // background-color: blue;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 3px 3px 10px lightgrey;
+    transition: box-shadow 150ms ease-in;
+    // display: flex;
+    // flex: "1 0 auto";
+    min-width: 95%;
+    max-width: 95%;
+    //   overflow-x: none;
+
+    .avatar-wrapper {
+      .avatar {
+        margin-right: 16px;
+      }
+    }
+
+    .contact-name {
+      font-size: 1.8rem;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-width: 200px;
+      width: 100%;
+    }
+
+    .contact-last-message {
+      line-height: normal;
+      margin-top: 0;
+      color: #28a745;
+    }
+
+    .contact-last-message-time {
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .contact-mood {
+      line-height: normal;
+      margin: 0;
+    }
+
+    .unread-message-count {
+      font-size: 12px;
+      border-radius: 50%;
+      text-align: center;
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+    }
+
+    .title-type {
+      // line-height: normal;
+      // margin-top: 0;
+      font-size: 1rem;
+      color: #28a745;
+    }
+  }
+
+  .custom-background {
+    background-color: #e7edd9!important;
+  }
+ 
+
+  .right-item {
+    margin-left: 1rem;
+    color: #9c9e9f;
+    font-weight: 500;
+    //   background-color: blue;
+    width: 60%;
+    // height: 100%;
+    //   display: flex;
+    //   justify-content: start;
+    // background-color: red;
+    // align-items: stretch;
+    //   flex-wrap: wrap;
+    //   flex-direction: row;
+    //   overflow-x: auto;
+
+    .chip-schedule-item {
+      margin: 0.25rem;
+      width: 100%;
+      // width: 130px;
+      height: 5rem;
+      border-radius: 3px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-content: center;
+      align-items: center;
+
+      font-weight: lighter;
+
+      p {
+        padding: 0;
+        margin: 0;
+        font-size: 1.5rem;
+      }
+      p:first-child {
+        font-size: 1.5rem;
+        color: black;
+        font-weight: bold;
+      }
+
+      .off {
+        font-size: 1.1rem;
+      }
+
+      .punch-in {
+        font-size: 2rem!important;
+        color: #28a745 !important;
+        font-weight: 400 !important;
+      }
+
+      .punch-out {
+        font-size: 2rem!important;
+        color: #ff5757 !important;
+        font-weight: 400 !important;
+      }
+    }
+
+    .selected {
+      background-color: #AA4A44;
+      border: 1px solid #d1dfeb;
+
+      p {
+        color: white;
+      }
+    }
+  }
+}

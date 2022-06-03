@@ -1,0 +1,413 @@
+<div class="figma mt-24" fxFlex fxLayout="column">
+  <mat-toolbar class="figma-toolbar">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxLayout="row " fxLayoutAlign="start center">
+        <button
+          mat-icon-button
+          fxHide.gt-md
+          class="responsive-figmas-button mr-16"
+          fuseMatSidenavToggler="figma-left"
+          aria-label="figmas button"
+        >
+          <mat-icon>user</mat-icon>
+        </button>
+
+        <div class="offline-switch">
+          <mat-slide-toggle [(ngModel)]="isEditMode" ngDefaultControl labelPosition="before"
+            ><span translate>COMMON.TOGGLE_MODE</span>
+          </mat-slide-toggle>
+        </div>
+      </div>
+
+      <div>
+        <div class="actions" fxLayout="row" fxLayoutAlign="start center">
+          <div class="row col-12" *ngIf="!!employee.user">
+            <div class="reset-password col-3">
+              <button
+                mat-raised-button
+                class="warn-500"
+                (click)="onClickDeleteEmployee()"
+                [disabled]="formType === 'edit' && !isEditMode"
+              >
+                <span translate>COMMON.DELETE</span>
+              </button>
+            </div>
+          </div>
+          <div class="row col-12">
+            <div class="col-3" *ngIf="!!employee">
+              <button
+                mat-raised-button
+                class="accent"
+                [disabled]="(formType === 'edit' && !isEditMode) || employeeForm.invalid"
+                (click)="editEmployee()"
+              >
+                <span translate>COMMON.SAVE</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-toolbar>
+  <div id="figma-content" fxFlex="1 1 auto" fusePerfectScrollbar>
+    <div class="figma-messages mr-24">
+      <form [formGroup]="employeeForm">
+        <div class="dates" fxFlexFill fxLayout="column" fxLayout.gt-xs="row">
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+            <mat-label translate>EMPLOYEE.REGISTRATION_NUMBER</mat-label>
+            <input
+              matInput
+              formControlName="matricule"
+              (ngModelChange)="onChangeMatricule($event)"
+              [readonly]="!isEditMode && formType === 'edit'"
+              required
+            />
+            <mat-icon matSuffix class="secondary-text">assignment_ind</mat-icon>
+            <mat-error> {{ errorMatricule }} </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+            <mat-label translate>EMPLOYEE.REGION</mat-label>
+            <mat-select formControlName="region" required>
+              <mat-option
+                *ngFor="let region of regions"
+                [value]="region"
+                [disabled]="!isEditMode && formType === 'edit'"
+                >{{ region | titlecase }}</mat-option
+              >
+            </mat-select>
+            <mat-icon matSuffix class="secondary-text">ballot</mat-icon>
+            <mat-error translate>EMPLOYEE.CLASS_ERR</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="dates" fxFlexFill fxLayout="column" fxLayout.gt-xs="row">
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+            <mat-label translate>COMMON.FIRST_NAME</mat-label>
+            <input
+              matInput
+              formControlName="first"
+              [readonly]="!isEditMode && formType === 'edit'"
+              required
+            />
+            <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+            <mat-error translate> COMMON.FIRST_ERR </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+            <mat-label translate>COMMON.LAST_NAME</mat-label>
+            <input
+              matInput
+              formControlName="last"
+              [readonly]="!isEditMode && formType === 'edit'"
+              required
+            />
+            <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+            <mat-error translate> COMMON.LAST_ERR </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="dates" fxFlexFill fxLayout="column" fxLayout.gt-xs="row">
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+            <mat-label translate>EMPLOYEE.EMPLOYEE_TYPE</mat-label>
+            <mat-select formControlName="type" required>
+              <mat-option
+                *ngFor="let type of types"
+                [value]="type"
+                [disabled]="!isEditMode && formType === 'edit'"
+                >{{ type | translate }}</mat-option
+              >
+            </mat-select>
+            <mat-icon matSuffix class="secondary-text">account_box</mat-icon>
+            <mat-error translate>EMPLOYEE.EMPLOYEE_TYPE_ERR</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+            <mat-label translate>EMPLOYEE.CLASSES</mat-label>
+            <mat-select formControlName="class" required>
+              <mat-option
+                *ngFor="let class of classes"
+                [value]="class"
+                [disabled]="
+                  (!isEditMode && formType === 'edit') || selectedType !== 'COMMON.EMPLOYE'
+                "
+                >{{ class }}</mat-option
+              >
+            </mat-select>
+            <mat-icon matSuffix class="secondary-text">ballot</mat-icon>
+            <mat-error translate>EMPLOYEE.CLASS_ERR</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="dates" fxFlexFill fxLayout="column" fxLayout.gt-xs="row">
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+            <mat-label translate>EMPLOYEE.EMPLOYMENT_DATE</mat-label>
+            <input
+              matInput
+              [matDatepicker]="startDatePicker"
+              formControlName="hireDateStart"
+              [readonly]="!isEditMode && formType === 'edit'"
+            />
+            <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #startDatePicker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+            <mat-label translate>EMPLOYEE.TERMINATION</mat-label>
+            <input
+              matInput
+              [matDatepicker]="dueDatePicker"
+              placeholder="Due Date"
+              [min]="minTerminationDate"
+              [max]="maxTerminationDate"
+              formControlName="hireDateEnd"
+              [readonly]="!isEditMode && formType === 'edit'"
+            />
+            <mat-datepicker-toggle matSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #dueDatePicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+
+        <div *ngIf="selectedType === 'COMMON.EMPLOYE'" class="dates" fxFlexFill fxLayout="column" fxLayout.gt-xs="row">
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+            <mat-label
+              >
+              {{ 'EMPLOYEE.PERMANENT' | translate }} 
+              <!-- ({{ employee.region === 'MONTREAL' ? '280': '320'}} hours) -->
+              </mat-label
+            >
+            <input
+              matInput
+              [matDatepicker]="permanentDatePicker"
+              formControlName="tenurePermanent"
+              [readonly]="!isEditMode && formType === 'edit'"
+            />
+            <mat-datepicker-toggle matSuffix [for]="permanentDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #permanentDatePicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        
+        <div *ngIf="selectedType === 'COMMON.EMPLOYE'" class="dates" fxFlexFill fxLayout="column" fxLayout.gt-xs="row">
+
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+            <mat-label translate>COMMON.INITIAL_HOURS</mat-label>
+            <input
+              matInput
+              formControlName="initialHours"
+              [readonly]="!isEditMode && formType === 'edit'"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+            <mat-label translate>COMMON.CURRENT_HOURS</mat-label>
+            <input
+              matInput
+              formControlName="currentHours"
+              [readonly]="true"
+            />
+          </mat-form-field>
+        </div>
+
+        <div
+          class="dates mobile-toggle pb-20 pl-4 mr-sm-12"
+          fxLayoutAlign="space-between center"
+          fxLayout="column"
+          fxLayout.gt-xs="row"
+        >
+          <div class="offline-switch">
+            <mat-slide-toggle
+              formControlName="isMobileAppEnabled"
+              [disabled]="!isEditMode || formType !== 'edit' || !employee.user"
+              ngDefaultControl
+              labelPosition="before"
+              ><span translate>COMMON.TOGGLE_MOBILE_APP_ENABLED</span>
+            </mat-slide-toggle>
+          </div>
+
+          <div
+            class="row col-12"
+            *ngIf="!!employee.user && !!employee.user.email && employee.user.email !== ''"
+          >
+            <div class="reset-password col-3">
+              <button
+                mat-raised-button
+                class="warn-500"
+                (click)="resetPassword()"
+                [disabled]="!isEditMode || formType !== 'edit'"
+              >
+                <span translate>COMMON.RESET_PASSWORD</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="dates w-100-p" fxFlexFill fxLayout="column" fxLayout.gt-xs="row">
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+            <mat-label translate>COMMON.EMAIL</mat-label>
+            <input
+              matInput
+              formControlName="email"
+              [readonly]="!isEditMode && formType === 'edit'"
+            />
+            <mat-icon matSuffix class="secondary-text">email</mat-icon>
+            <mat-error translate> COMMON.EMAIL_ERR </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="dates" fxFlexFill fxLayout="column" fxLayout.gt-xs="row">
+          <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+            <mat-label>{{ 'COMMON.LOCATION' | translate }}</mat-label>
+            <mat-select
+              [formControl]="locationsFormControl"
+              [compareWith]="compareFn"
+              [(ngModel)]="locationsSelected"
+              multiple
+              required
+              placeholder="{{ 'COMMON.LOCATION' | translate }}"
+              floatlLabel="never"
+              (selectionChange)="onLocationSelectedChange($event)"
+            >
+              <mat-select-trigger>
+                <span *ngFor="let locName of locationsSelectedName"></span>
+                {{ locationsFormControl.value ? locationsSelectedName[0] : 'xxxxx' }}
+                <span *ngIf="locationsFormControl.value?.length > 1" class="additional-selection">
+                  (+{{ locationsFormControl.value.length - 1 }}
+                  {{ locationsFormControl.value?.length === 2 ? 'other' : 'others' }})
+                </span>
+              </mat-select-trigger>
+              <mat-option
+                *ngFor="let location of locationSelections"
+                [value]="location.id"
+                [disabled]="!isEditMode && formType === 'edit'"
+                >{{ location.name }}</mat-option
+              >
+            </mat-select>
+            <mat-icon matSuffix class="secondary-text">ballot</mat-icon>
+            <mat-error translate>COMMON.LOCATION_ERR</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="dates" fxFlexFill fxLayout="column" fxLayout.gt-xs="row">
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+            <mat-label translate>EMPLOYEE.SUGGESTED_TIMES</mat-label>
+            <mat-select
+              [formControl]="singleLocationControl"
+              (selectionChange)="onLocationSelectedForTimeChange($event)"
+            >
+              <mat-option
+                *ngFor="let location of singleLocationSelections"
+                [value]="location.id"
+                [disabled]="!isEditMode && formType === 'edit'"
+                >{{ location.name }}</mat-option
+              >
+            </mat-select>
+            <mat-icon matSuffix class="secondary-text">ballot</mat-icon>
+          </mat-form-field>
+        </div>
+      </form>
+      <form [formGroup]="horizontalStepperStep2">
+        <div
+          *ngIf="!!singleLocationSelected && singleLocationSelected !== ''"
+          [formArrayName]="singleLocationSelected"
+        >
+          <div [formArrayName]="i" *ngFor="let item of locationFormArray?.controls; let i = index">
+            <div [formArrayName]="y" *ngFor="let itemY of days; let y = index">
+              <div class="dates" fxFlexFill fxLayout="column" fxLayout.gt-xs="row">
+                <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+                  <mat-label
+                    >{{ days[y] | translate }} - {{ 'COMMON.START_TIME' | translate }}</mat-label
+                  >
+                  <input
+                    matInput
+                    formControlName="timeStart"
+                    type="time"
+                    [readonly]="!isEditMode && formType === 'edit'"
+                  />
+                  <mat-error translate=""> COMMON.START_ERR </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+                  <mat-label
+                    >{{ days[y] | translate }} - {{ 'COMMON.END_TIME' | translate }}</mat-label
+                  >
+                  <input
+                    matInput
+                    formControlName="timeEnd"
+                    type="time"
+                    [readonly]="!isEditMode && formType === 'edit'"
+                  />
+                  <mat-error translate> COMMON.END_ERR </mat-error>
+                </mat-form-field>
+                <div>
+                  <button
+                    *ngIf="!!!times[y].isSelectorOpen"
+                    mat-raised-button
+                    color="accent"
+                    class="add mt-16 mr-12"
+                    (click)="
+                      onClickToggleAddView({
+                        index: y
+                      })
+                    "
+                  >
+                    +
+                  </button>
+                  <button
+                    *ngIf="times[y].isSelectorOpen"
+                    mat-raised-button
+                    color="warn"
+                    class="add mt-16 mr-12"
+                    (click)="
+                      onClickToggleAddView({
+                        index: y
+                      })
+                    "
+                  >
+                    -
+                  </button>
+                </div>
+              </div>
+              <div
+                *ngIf="!!times[y].isSelectorOpen"
+                class="dates"
+                fxFlexFill
+                fxLayout="column"
+                fxLayout.gt-xs="row"
+              >
+                <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+                  <mat-label
+                    >{{ days[y] | translate }} - {{ 'COMMON.START_TIME' | translate }}</mat-label
+                  >
+                  <input
+                    matInput
+                    formControlName="timeStartSub"
+                    type="time"
+                    [readonly]="!isEditMode && formType === 'edit'"
+                  />
+                  <mat-error translate> COMMON.START_ERR </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+                  <mat-label
+                    >{{ days[y] | translate }} - {{ 'COMMON.END_TIME' | translate }}</mat-label
+                  >
+                  <input
+                    matInput
+                    formControlName="timeEndSub"
+                    type="time"
+                    [readonly]="!isEditMode && formType === 'edit'"
+                  />
+                  <mat-error translate> COMMON.END_ERR </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="figma-footer ml-28" fxFlex="0 0 auto" fxLayout="column">
+    <div *ngIf="!!error" fxLayout="row" fxLayout.gt-xs="row">
+      <span class="warn-600"
+        >Oooops! Something went wrong. Please try again later {{ error | json }}</span
+      >
+    </div>
+  </div>
+</div>

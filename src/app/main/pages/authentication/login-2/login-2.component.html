@@ -1,0 +1,88 @@
+<div id="login" class="inner-scroll" fxLayout="row" fxLayoutAlign="start">
+  <div id="login-intro" fxFlex fxHide fxShow.gt-xs>
+    <div class="logo" [@animate]="{ value: '*', params: { scale: '0.2' } }">
+      <!-- <img src="{{logoUrl}}" /> -->
+    </div>
+
+    <div class="title" [@animate]="{ value: '*', params: { delay: '50ms', y: '25px' } }">
+      Bienvenue sur le Portail d'administration
+    </div>
+
+    <br />
+    <div class="description" [@animate]="{ value: '*', params: { delay: '100ms', y: '25px' } }">
+      Veuillez vous connecter pour continuer.
+    </div>
+  </div>
+
+  <div
+    id="login-form-wrapper"
+    fusePerfectScrollbar
+    [@animate]="{ value: '*', params: { delay: '300ms', x: '100%' } }"
+  >
+    <div id="login-form">
+      <div class="logo">
+        <img src="{{ logoUrl }}" />
+      </div>
+
+      <div class="title">CONNECTEZ-VOUS À VOTRE COMPTE</div>
+
+      <form name="loginForm" [formGroup]="loginForm" novalidate>
+        <mat-form-field appearance="outline">
+          <mat-label>Nom d'utilisateur</mat-label>
+          <input matInput formControlName="username" />
+          <mat-icon matSuffix class="secondary-text">mail</mat-icon>
+          <mat-error *ngIf="loginForm.get('username').hasError('required')">
+            Le nom d'utilisateur est requis
+          </mat-error>
+          <mat-error
+            *ngIf="
+              !loginForm.get('username').hasError('required') &&
+              loginForm.get('username').hasError('email')
+            "
+          >
+            Veuillez entrer un nom d'utilisateur valide
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Mot de passe</mat-label>
+          <input matInput type="password" formControlName="password" />
+          <mat-icon matSuffix class="secondary-text">vpn_key</mat-icon>
+          <mat-error> Le mot de passe est requis </mat-error>
+        </mat-form-field>
+
+        <!-- <div class="remember-forgot-password" fxLayout="row" fxLayout.xs="column"
+                     fxLayoutAlign="space-between center">
+                    <mat-checkbox class="remember-me" aria-label="Remember Me">
+                        Remember Me
+                    </mat-checkbox>
+
+                    <a class="forgot-password" [routerLink]="'/pages/auth/forgot-password-2'">
+                        Forgot Password?
+                    </a>
+                </div> -->
+
+        <button
+          mat-raised-button
+          color="accent"
+          class="submit-button"
+          aria-label="LOGIN"
+          [disabled]="loginForm.invalid || !!loading"
+          (click)="onClick()"
+        >
+          Se connecter
+        </button>
+      </form>
+
+      <div fxLayout="column" fxLayoutAlign="start center" *ngIf="errorMessage.length > 0">
+        <mat-icon class="red-fg">error</mat-icon>
+        <span class="text">{{ errorMessage }}</span>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <mat-spinner *ngIf="loading" color="accent"></mat-spinner>
+      </div>
+
+      <div class="separator"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,176 @@
+<div id="figma" class="page-layout carded fullwidth inner-scroll">
+  <div class="top-bg white"></div>
+  <div class="center">
+    <app-figma-header [header]="header" (back)="onClickBack()"></app-figma-header>
+
+    <div class="content-card">
+      <div
+        fxLayout="row"
+        fxLayoutGap="15px"
+        fxLayoutAlign="start center"
+        class="filters-header p-16 border"
+      >
+        <div>{{ 'COMMON.FILTERED_BY' | translate }}</div>
+        <figma-search-dropdown
+          [title]="'COMMON.BANNERS'"
+          (close)="onBannerSelectionChange($event)"
+          [data]="bannerSelections"
+        ></figma-search-dropdown>
+        <figma-search-dropdown
+          [title]="'COMMON.CLIENTS'"
+          [data]="clientSelections"
+          (close)="onClientSelectionChange()"
+        ></figma-search-dropdown>
+
+        <!-- Frequency Dropdown -->
+
+        <buttton
+          [matMenuTriggerFor]="frequencyMenu"
+          #menuTrigger="matMenuTrigger"
+          class="trigger-btn"
+        >
+          {{ 'REPORTS.FREQUENCY' | translate }}
+          <mat-icon *ngIf="!menuTrigger.menuOpen">expand_more</mat-icon>
+          <mat-icon *ngIf="menuTrigger.menuOpen">expand_less</mat-icon>
+        </buttton>
+
+        <mat-menu #frequencyMenu class="frequency-menu" (closed)="onFrequencyClose()">
+          <mat-selection-list [multiple]="true" [disableRipple]="true">
+            <ng-container *ngFor="let item of frequencies">
+              <mat-list-option
+                [selected]="item == selectedFrequency"
+                [checkboxPosition]="'before'"
+                (click)="onClickFrequency(item, $event)"
+              >
+                {{ item | translate}}
+              </mat-list-option>
+            </ng-container>
+          </mat-selection-list>
+        </mat-menu>
+
+        <!-- <div fxLayout="row" class="frequency">
+          <form [formGroup]="payrollForm">
+            <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+              <mat-label translate>REPORTS.FREQUENCY</mat-label>
+              <mat-select formControlName="freq" required>
+                <mat-option *ngFor="let frequency of frequencies" [value]="frequency">{{
+                  frequency | titlecase
+                }}</mat-option>
+              </mat-select>
+              <mat-icon matSuffix class="secondary-text">ballot</mat-icon>
+              <mat-error translate>EMPLOYEE.REGION_ERR</mat-error>
+            </mat-form-field>
+          </form>
+        </div> -->
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-between" class="p-16">
+        <div fxLayout="row">
+          <figma-auto-range-datepicker
+            [range]="range"
+            [required]="true"
+            (closed)="onDatePickerClose($event)"
+            class="mr-20"
+          ></figma-auto-range-datepicker>
+        </div>
+        <div fxLayout="row" class="export">
+          <img
+            style="height: 18px"
+            class="mr-12"
+            src="assets/images/reports/export.svg"
+            alt=""
+            srcset=""
+          />
+          <div (click)="downloadCurrentSchedule()">{{ 'COMMON.EXPORT' | translate }}</div>
+        </div>
+      </div>
+
+      <div class="table-title">
+        {{ 'REPORTS.FINANCE.PAYROLL' | translate }}
+      </div>
+
+      <ngx-datatable
+        id="employee-table"
+        style="top: 10px; box-shadow: none"
+        class="material"
+        [rows]="rows"
+        [columns]="columns"
+        [columnMode]="ColumnMode.force"
+        [headerHeight]="headerHeight"
+        [rowHeight]="'auto'"
+        [footerHeight]="footerHeight"
+        [externalSorting]="true"
+        [loadingIndicator]="loadingIndicator"
+        [messages]="{emptyMessage: ('COMMON.NO_DATA' | translate), totalMessage: 'total'}"
+        (scroll)="onScroll($event)"
+        (sort)="onSort($event)"
+      >
+        <ngx-datatable-column [name]="'COMMON.CLIENT'|translate|uppercase" [sortable]="true">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <span>{{ row?.client }}</span>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column [name]="'COMMON.EMPLOYEE'|translate|uppercase" [sortable]="true">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <span> {{ row?.employeeFirst }} {{ row?.employeeLast }}</span>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column [name]="'REPORTS.FINANCE.HIRE_START_DATE'|translate|uppercase" [sortable]="true">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <span>{{ row?.start ? (row.start | date: 'MM/dd/yyyy') : '-' }}</span>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column [name]="'REPORTS.FINANCE.STATUS'|translate|uppercase" [sortable]="true">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <span> {{ row?.status }}</span>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+
+      <!-- <div fxLayout="row" fxLayoutAlign="end" class="p-24">
+        <div fxLayout="row" class="frequency">
+          <form [formGroup]="payrollForm">
+            <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+              <mat-label translate>REPORTS.FREQUENCY</mat-label>
+              <mat-select formControlName="freq" required>
+                <mat-option *ngFor="let frequency of frequencies" [value]="frequency">{{
+                  frequency | titlecase
+                }}</mat-option>
+              </mat-select>
+              <mat-icon matSuffix class="secondary-text">ballot</mat-icon>
+              <mat-error translate>EMPLOYEE.REGION_ERR</mat-error>
+            </mat-form-field>
+          </form>
+        </div>
+        <div fxLayout="row" class="export">
+          <img
+            style="height: 18px"
+            class="mr-12"
+            src="assets/images/reports/export.svg"
+            alt=""
+            srcset=""
+          />
+          <div (click)="downloadCurrentSchedule()">{{ 'COMMON.EXPORT' | translate }}</div>
+        </div>
+      </div> -->
+
+      <!-- TABLE -->
+      <!-- <div class="table-wrapper" fxLayout="column" fxLayoutAlign="center center">
+        <div class="calendar" fxLayout="row" fxLayoutAlign="center center">
+          <mat-card class="demo-inline-calendar-card">
+            <mat-calendar
+              (selectedChange)="onCalendarChange($event)"
+              [dateFilter]="dateFilter"
+              [selected]="selected"
+              [minDate]="minDate"
+              [maxDate]="maxDate"
+            ></mat-calendar>
+          </mat-card>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,79 @@
+<button
+  mat-button
+  class="contact"
+  ngClass="{'unread':contact.unread}"
+  [@animate]="{ value: '*', params: { y: '100%' } }"
+>
+  <div fxLayout="row" fxLayoutAlign="start center">
+    <!-- <div class="avatar-wrapper" fxFlex="0 1 auto" fxLayoutAlign="center center">
+      <mat-icon>label</mat-icon>
+    </div> -->
+
+    <div fxLayout="row" fxFlex>
+      <!-- <div class="chip-schedule-item">
+        <p translate>COMMON.LOCATION</p>
+      </div> -->
+        <div
+        class="pr-4 ml-24 chip-schedule-item"
+        fxFlex
+        fxLayout="column"
+        fxLayoutAlign="center start"
+      >
+        <p translate>COMMON.LOCATION</p>
+      </div>
+      <!-- <div
+        class="pr-4 ml-24 chip-schedule-item"
+        fxFlex
+        fxLayout="column"
+        fxLayoutAlign="center start"
+      >
+        <p translate>COMMON.EMPLOYEE</p>
+      </div> -->
+
+      <div fxLayout="row" class="right-item" fxLayoutAlign="space-around center">
+        <!-- <ng-container *ngFor="let time of item.suggestedTimes; index as i">
+          <ng-container
+            [ngTemplateOutlet]="time !== '' ? working : off"
+            [ngTemplateOutletContext]="{ time: time, index: i }"
+          >
+          </ng-container>
+        </ng-container>
+        <ng-template #working let-time="time" let-index="index">
+          <div *ngIf="time !== ''; else dayoffBlock" class="chip-employee-item selected">
+            <p>{{ days[index] }}</p>
+            <p>{{ time }}</p>
+          </div>
+        </ng-template>
+
+        <ng-template #off let-time="time" let-index="index">
+          <div class="chip-employee-item">
+            <p>{{ days[index] }}</p>
+            <p class="off">OFF</p>
+          </div>
+        </ng-template> -->
+
+        <!-- <div class="chip-schedule-item">
+          <p translate>COMMON.LOCATION</p>
+        </div> -->
+        <div class="chip-schedule-item">
+          <p translate>COMMON.EMPLOYEE</p>
+        </div>
+        <div class="chip-schedule-item">
+          <p translate>SCHEDULE.PUNCH_IN</p>
+        </div>
+        <div class="chip-schedule-item">
+          <p translate>COMMON.DEADLINE</p>
+          <!-- <p>{{ item.timeStart | date: 'h:mm a' }}</p> -->
+        </div>
+        <!-- <div class="chip-schedule-item">
+          <p translate>SCHEDULE.END</p> -->
+          <!-- <p>{{ item.timeEnd | date: 'h:mm a' }}</p> -->
+        <!-- </div> -->
+      
+        <!-- <div class="chip-schedule-item">
+          <p translate>SCHEDULE.PUNCH_OUT</p>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</button>

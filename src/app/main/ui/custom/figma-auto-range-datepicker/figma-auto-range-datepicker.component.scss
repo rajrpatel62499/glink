@@ -1,0 +1,27 @@
+.custom-datepicker {
+    .mat-calendar-body-selected {
+      background-color: #CBDBA4 !important;
+    }
+    .mat-calendar-body-in-range::before {
+      background-color: #F5F8ED !important;
+    }
+    .mat-calendar-header {
+      padding: 0px !important;
+    }
+    .mat-calendar-controls {
+      margin: 3% calc(33% / 7 - 16px) !important;
+    }
+    .mat-calendar-body-label {
+      padding-top: 5.14286% !important;
+      padding-bottom: 3.14286% !important;
+    }
+ 
+  }
+
+  .mat-datepicker-content .mat-calendar {
+    height: fit-content !important;
+  }
+
+   .mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: white !important;
+  }

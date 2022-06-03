@@ -1,0 +1,23 @@
+<div *ngIf="locations.length === 0" fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
+  <span class="no-locations-text hint-text">There are no locations!</span>
+</div>
+<div
+  class="location-list"
+  ngxDroppable
+  [model]="locations"
+  (out)="onDrop($event)"
+  [@animateStagger]="{ value: '50' }"
+>
+  <location-list-item
+    class="location-list-item has-handle"
+    *ngFor="let location of locations"
+    [location]="location"
+    ngxDraggable
+    [model]="location"
+    [routerLink]="'/apps/location/all/' + location._id"
+    (click)="readLocation(location._id)"
+    [ngClass]="{ 'current-location': 'false' }"
+    [@animate]="{ value: '*', params: { y: '100%' } }"
+  >
+  </location-list-item>
+</div>

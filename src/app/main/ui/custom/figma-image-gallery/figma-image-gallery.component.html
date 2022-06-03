@@ -1,0 +1,29 @@
+<!-- carousel -->
+<div id="image-gallery">
+  <div class="container">
+  
+    <mat-icon class="close"  *ngIf="closeBtn" (click)="close(false)">close</mat-icon>
+  
+    <div class="carousel">
+      <ng-container *ngFor="let slide of data.images; let i = index">
+        <img
+          *ngIf="i === currentSlide"
+          [src]="slide"
+          class="slide"
+          @slideAnimation
+        />
+      </ng-container>
+    
+      <!-- controls -->
+      <button class="control prev" (click)="onPreviousClick()">
+        <span class="arrow left"></span>
+      </button>
+      <button class="control next" (click)="onNextClick()">
+        <span class="arrow right"></span>
+      </button>
+    </div>
+  
+  </div>
+
+</div>
+

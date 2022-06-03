@@ -1,0 +1,263 @@
+<div class="figma mt-24" fxFlex fxLayout="column">
+  <mat-toolbar class="figma-toolbar">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxLayout="row " fxLayoutAlign="start center">
+        <button
+          mat-icon-button
+          fxHide.gt-md
+          class="responsive-figmas-button mr-16"
+          fuseMatSidenavToggler="figma-left"
+          aria-label="figmas button"
+        >
+          <mat-icon>user</mat-icon>
+        </button>
+        <div class="offline-switch">
+          <mat-slide-toggle [(ngModel)]="isEditMode" ngDefaultControl labelPosition="before"
+            ><span translate>COMMON.TOGGLE_MODE</span>
+          </mat-slide-toggle>
+        </div>
+      </div>
+
+      <div>
+        <div class="actions" fxLayout="row" fxLayoutAlign="start center">
+          <div class="p-6">
+            <button
+              mat-raised-button
+              class="accent"
+              [disabled]="(formType === 'edit' && !isEditMode) || scheduleForm.invalid"
+              (click)="editSchedule()"
+            >
+              <span translate>COMMON.SAVE</span>
+            </button>
+          </div>
+
+          <div class="p-12">
+            <button
+              [disabled]="formType === 'edit' && !isEditMode"
+              mat-raised-button
+              class="red-600 secondary-text w-100-p"
+              (click)="deleteContact()"
+              aria-label="ADD TASK"
+            >
+              <span translate>COMMON.DELETE</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-toolbar>
+  <div id="figma-content" fxFlex="1 1 auto" fusePerfectScrollbar>
+    <div class="figma-messages mr-24">
+      <form [formGroup]="scheduleForm">
+        <div class="dates" fxFlexFill fxLayout="column" fxLayout.gt-xs="row">
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+            <mat-label translate>COMMON.LOCATION</mat-label>
+            <mat-select formControlName="location">
+              <mat-option
+                *ngFor="let location of locations"
+                [value]="location._id"
+                (onSelectionChange)="onLocationSelectionChange(location, $event)"
+                [disabled]="!isEditMode && formType === 'edit'"
+                >{{ location.name }}</mat-option
+              >
+            </mat-select>
+            <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+            <mat-error translate>COMMON.LOCATION_ERR</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="dates" fxFlexFill fxLayout="column" fxLayout.gt-xs="row">
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+            <mat-label translate>COMMON.EMPLOYEE</mat-label>
+            <mat-select formControlName="employee">
+              <mat-option
+                [disabled]="!isEditMode && formType === 'edit'"
+                *ngFor="let employee of filteredEmployees"
+                [value]="employee._id"
+                >{{ employee.first }} {{ employee.last }}</mat-option
+              >
+            </mat-select>
+            <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+            <mat-error translate>COMMON.EMPLOYEE_ERR</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="dates" fxFlexFill fxLayout="column" fxLayout.gt-xs="row">
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex *ngIf="formType === 'edit'">
+            <mat-label translate>SCHEDULE.START_DATE</mat-label>
+            <input
+              matInput
+              [matDatepicker]="timeStartPicker"
+              placeholder="{{ 'SCHEDULE.START_DATE' | translate }}"
+              formControlName="timeStartDate"
+              [disabled]="!isEditMode && formType === 'edit'"
+            />
+            <mat-datepicker-toggle matSuffix [for]="timeStartPicker"></mat-datepicker-toggle>
+            <mat-datepicker #timeStartPicker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+            <mat-label translate>SCHEDULE.START_TIME</mat-label>
+            <input
+              matInput
+              formControlName="timeStartTime"
+              type="time"
+              placeholder="{{ 'SCHEDULE.START_TIME' | translate }}"
+              [readonly]="!isEditMode && formType === 'edit'"
+            />
+            <mat-error translate> SCHEDULE.START_TIME_ERR </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="dates" fxFlexFill fxLayout="column" fxLayout.gt-xs="row">
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex *ngIf="formType === 'edit'">
+            <mat-label translate>SCHEDULE.END_DATE</mat-label>
+            <input
+              matInput
+              [matDatepicker]="timeEndPicker"
+              placeholder="{{ 'SCHEDULE.END_DATE' | translate }}"
+              formControlName="timeEndDate"
+              [disabled]="!isEditMode && formType === 'edit'"
+            />
+            <mat-datepicker-toggle matSuffix [for]="timeEndPicker"></mat-datepicker-toggle>
+            <mat-datepicker #timeEndPicker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+            <mat-label translate>SCHEDULE.END_TIME</mat-label>
+            <input
+              matInput
+              formControlName="timeEndTime"
+              type="time"
+              placeholder="{{ 'SCHEDULE.END_TIME' | translate }}"
+              [readonly]="!isEditMode && formType === 'edit'"
+            />
+            <mat-error translate> SCHEDULE.END_TIME_ERR </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div
+          *ngIf="formType === 'new'"
+          class="dates"
+          fxFlexFill
+          fxLayout="column"
+          fxLayout.gt-xs="row"
+        >
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+            <mat-label translate>SCHEDULE.DATE_RANGE_START</mat-label>
+            <input
+              matInput
+              [matDatepicker]="dateRangeStartPicker"
+              placeholder="{{ 'SCHEDULE.DATE_RANGE_START' | translate }}"
+              formControlName="dateRangeStart"
+              [disabled]="!isEditMode && formType === 'edit'"
+            />
+            <mat-datepicker-toggle matSuffix [for]="dateRangeStartPicker"></mat-datepicker-toggle>
+            <mat-datepicker #dateRangeStartPicker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+            <mat-label translate>SCHEDULE.DATE_RANGE_END</mat-label>
+            <input
+              matInput
+              [matDatepicker]="dateRangeEndPicker"
+              placeholder="{{ 'SCHEDULE.DATE_RANGE_END' | translate }}"
+              formControlName="dateRangeEnd"
+              [disabled]="!isEditMode && formType === 'edit'"
+            />
+            <mat-datepicker-toggle matSuffix [for]="dateRangeEndPicker"></mat-datepicker-toggle>
+            <mat-datepicker #dateRangeEndPicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div
+          *ngIf="formType === 'edit'"
+          class="dates"
+          fxFlexFill
+          fxLayout="column"
+          fxLayout.gt-xs="row"
+        >
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+            <mat-label translate>SCHEDULE.PUNCH_IN_DATE</mat-label>
+            <input
+              matInput
+              placeholder="{{ 'SCHEDULE.PUNCH_IN_DATE' | translate }}"
+              [matDatepicker]="punchInDatePicker"
+              formControlName="punchInDate"
+              [disabled]="!isEditMode && formType === 'edit'"
+            />
+            <mat-datepicker-toggle matSuffix [for]="punchInDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #punchInDatePicker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+            <mat-label translate>SCHEDULE.PUNCH_IN_TIME</mat-label>
+            <input
+              matInput
+              formControlName="punchInTime"
+              type="time"
+              placeholder="{{ 'SCHEDULE.END_TIME' | translate }}"
+              [readonly]="!isEditMode && formType === 'edit'"
+            />
+            <mat-error translate> SCHEDULE.END_TIME_ERR</mat-error>
+          </mat-form-field>
+        </div>
+        <div
+          *ngIf="formType === 'edit'"
+          class="dates"
+          fxFlexFill
+          fxLayout="column"
+          fxLayout.gt-xs="row"
+        >
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+            <mat-label translate>SCHEDULE.PUNCH_OUT_DATE</mat-label>
+            <input
+              matInput
+              placeholder="{{ 'SCHEDULE.PUNCH_OUT_DATE' | translate }}"
+              [matDatepicker]="punchOutDatePicker"
+              formControlName="punchOutDate"
+              [disabled]="!isEditMode && formType === 'edit'"
+            />
+            <mat-datepicker-toggle matSuffix [for]="punchOutDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #punchOutDatePicker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+            <mat-label translate>SCHEDULE.PUNCH_OUT_TIME</mat-label>
+            <input
+              matInput
+              formControlName="punchOutTime"
+              type="time"
+              placeholder="{{ 'SCHEDULE.PUNCH_OUT_TIME' | translate }}"
+              [readonly]="!isEditMode && formType === 'edit'"
+            />
+            <mat-error translate> SCHEDULE.END_TIME_ERR </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="dates" fxFlexFill fxLayout="column" fxLayout.gt-xs="row">
+          <mat-form-field appearance="outline" fxFlex="33">
+            <mat-label translate>SCHEDULE.SCHEDULE_STATUS</mat-label>
+            <mat-select formControlName="status">
+              <mat-option
+                [disabled]="!isEditMode && formType === 'edit'"
+                *ngFor="let item of statuses | sortByTranslate"
+                [value]="item"
+                >{{ item | translate }}</mat-option
+              >
+            </mat-select>
+
+            <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="figma-footer ml-28" fxFlex="0 0 auto" fxLayout="column">
+    <div *ngIf="!!error" fxLayout="row" fxLayout.gt-xs="row">
+      <span class="warn-600"
+        >Oooops! Something went wrong. Please try again later {{ error | json }}</span
+      >
+    </div>
+  </div>
+</div>

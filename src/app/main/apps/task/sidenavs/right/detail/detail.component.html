@@ -1,0 +1,204 @@
+<div class="figma mt-24" fxFlex fxLayout="column">
+  <mat-toolbar class="figma-toolbar">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxLayout="row " fxLayoutAlign="start center">
+        <button
+          mat-icon-button
+          fxHide.gt-md
+          class="responsive-figmas-button mr-16"
+          fuseMatSidenavToggler="figma-left"
+          aria-label="figmas button"
+        >
+          <mat-icon>user</mat-icon>
+        </button>
+        <div class="offline-switch">
+          <mat-slide-toggle [(ngModel)]="isEditMode" ngDefaultControl labelPosition="before"
+            ><span translate>COMMON.TOGGLE_MODE</span>
+          </mat-slide-toggle>
+        </div>
+      </div>
+
+      <div>
+        <div class="actions" fxLayout="row" fxLayoutAlign="start center">
+          <div class="p-6">
+            <button
+              mat-raised-button
+              class="accent"
+              [disabled]="(formType === 'edit' && !isEditMode) || taskForm.invalid"
+              (click)="onClickSave()"
+            >
+              <span translate>COMMON.SAVE</span>
+            </button>
+          </div>
+
+          <div class="p-12">
+            <button
+              [disabled]="formType === 'edit' && !isEditMode"
+              mat-raised-button
+              class="red-600 secondary-text w-100-p"
+              (click)="onClickDelete()"
+              aria-label="ADD TASK"
+            >
+              <span translate>COMMON.DELETE</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-toolbar>
+  <div id="figma-content" fxFlex="1 1 auto" fusePerfectScrollbar>
+    <div class="figma-messages mr-24">
+      <form [formGroup]="taskForm">
+        <mat-form-field appearance="outline" class="title mt-8" fxFill>
+          <mat-label translate>TASKS.TITLE</mat-label>
+          <input
+            matInput
+            formControlName="title"
+            [readonly]="!isEditMode && formType === 'edit'"
+            required
+          />
+          <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+          <mat-error translate> TASKS.TITLE_ERR </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="title mt-8" fxFill>
+          <mat-label translate>TASKS.DESCRIPTION</mat-label>
+          <input
+            matInput
+            formControlName="description"
+            [readonly]="!isEditMode && formType === 'edit'"
+            required
+          />
+          <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+          <mat-error translate> TASKS.DESCRIPTION_ERR </mat-error>
+        </mat-form-field>
+
+        <div class="dates" fxFlexFill fxLayout="column" fxLayout.gt-xs="row">
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+            <mat-label translate>TASKS.START_TIME</mat-label>
+            <input
+              matInput
+              formControlName="timeStartTime"
+              type="time"
+              placeholder="Start Time"
+              [readonly]="!isEditMode && formType === 'edit'"
+            />
+            <mat-error translate>TASKS.START_ERR</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+            <mat-label translate>TASKS.EXPIRATION_TASK</mat-label>
+            <input
+              matInput
+              formControlName="timeEndTime"
+              type="time"
+              placeholder="{{ 'TASKS.EXPIRATION_TASK' | translate }}"
+              [readonly]="!isEditMode && formType === 'edit'"
+            />
+            <mat-error translate>TASKS.EXPIRATION_TASK_ERR</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="dates" fxFlexFill fxLayout="column" fxLayout.gt-xs="row">
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+            <mat-label translate>TASKS.START_DATE</mat-label>
+            <input
+              matInput
+              [matDatepicker]="dateRangeStartPicker"
+              placeholder="{{ 'TASKS.START_DATE' | translate }}"
+              formControlName="dateStart"
+              [disabled]="!isEditMode && formType === 'edit'"
+            />
+            <mat-datepicker-toggle matSuffix [for]="dateRangeStartPicker"></mat-datepicker-toggle>
+            <mat-datepicker #dateRangeStartPicker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+            <mat-label translate>TASKS.EXPIRY_DATE</mat-label>
+            <input
+              matInput
+              [matDatepicker]="dateRangeEndPicker"
+              placeholder="{{ 'TASKS.EXPIRY_DATE' | translate }}"
+              formControlName="dateEnd"
+              [disabled]="!isEditMode && formType === 'edit'"
+            />
+            <mat-datepicker-toggle matSuffix [for]="dateRangeEndPicker"></mat-datepicker-toggle>
+            <mat-datepicker #dateRangeEndPicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="dates" fxFlexFill fxLayout="column" fxLayout.gt-xs="row">
+          <mat-form-field appearance="outline" fxFlex="33">
+            <mat-label translate>TASKS.RECURRENCE</mat-label>
+            <mat-select formControlName="recurrence">
+              <mat-option
+                [disabled]="!isEditMode && formType === 'edit'"
+                *ngFor="let item of recurrences"
+                [value]="item"
+                >{{ item | translate}}</mat-option
+              >
+            </mat-select>
+
+            <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" fxFlex="33">
+            <mat-label translate>TASKS.NUM_ENTRIES</mat-label>
+            <mat-select formControlName="count">
+              <mat-option
+                *ngFor="let item of countEntries"
+                [value]="item"
+                [disabled]="!isEditMode && formType === 'edit'"
+                >{{ item }}</mat-option
+              >
+            </mat-select>
+
+            <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+            <mat-label translate>COMMON.CLIENT</mat-label>
+            <mat-select formControlName="property" required>
+              <mat-option
+                *ngFor="let property of properties"
+                [value]="property._id"
+                [disabled]="!isEditMode && formType === 'edit'"
+                >{{ property.username }}</mat-option
+              >
+            </mat-select>
+            <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+            <mat-error translate>COMMON.CLIENT_ERR</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="dates" fxFlexFill fxLayout="column" fxLayout.gt-xs="row">
+          <mat-checkbox class="mt-8" formControlName="isImageRequired">
+            <span translate>TASKS.IMAGE_NEEDED</span>
+          </mat-checkbox>
+        </div>
+
+        <div
+          class="dates"
+          fxFlexFill
+          fxLayout="column"
+          fxLayout.gt-xs="row"
+          *ngIf="!!isEditMode && formType === 'edit'"
+        >
+          <mat-checkbox
+            class="mt-8"
+            formControlName="isEditAll"
+            [disabled]="task.recurrence === 'SINGLE'"
+          >
+            <span translate>TASKS.APPLY_ARTICLES</span>
+          </mat-checkbox>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="figma-footer ml-28" fxFlex="0 0 auto" fxLayout="column">
+    <div *ngIf="!!error" fxLayout="row" fxLayout.gt-xs="row">
+      <span class="warn-600"
+        >Oooops! Something went wrong. Please try again later {{ error | json }}</span
+      >
+    </div>
+  </div>
+</div>

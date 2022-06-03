@@ -1,0 +1,52 @@
+<button
+  mat-button
+  class="contact"
+  ngClass="{'unread':contact.unread}"
+  [@animate]="{ value: '*', params: { y: '100%' } }"
+>
+  <div fxLayout="row" fxLayoutAlign="start center">
+    <div class="avatar-wrapper" fxFlex="0 1 auto" fxLayoutAlign="center center">
+      <!-- <img
+              class="avatar"
+              [src]="contacts | getById: figma.contactId:'avatar'"
+              alt="{{ contacts | getById: fifgma.contactId:'name' }}"
+            /> -->
+      <mat-icon>label</mat-icon>
+    </div>
+
+    <div fxLayout="row" fxFlex>
+      <ng-container *ngIf="item.type === 'SUPERVISOR'; else property">
+        <div class="pr-4 ml-24" fxFlex fxLayout="column" fxLayoutAlign="center start">
+          <div class="contact-name">{{ item.first }} {{ item.last }}</div>
+          <div class="title-type" translate>COMMON.SUPERVISOR_CAPITAL</div>
+        </div>
+      </ng-container>
+      <ng-template #property>
+        <div class="pr-4 ml-24" fxFlex fxLayout="column" fxLayoutAlign="center start">
+          <div class="contact-name">
+            {{ !!item.locations && item.locations.length > 0 ? item.locations[0].name : 'No name' }}
+          </div>
+          <div class="title-type">PROPERTY</div>
+        </div>
+      </ng-template>
+
+      <div
+        *ngIf="item.type === 'PROPERTY'"
+        fxLayout="row"
+        fxLayoutAlign="end end"
+        class="right-item"
+      >
+        <ng-container *ngFor="let location of item.locations; index as i">
+          <div *ngIf="!!location; else nolocation" class="chip-user-item selected accent-100">
+            <p>{{ item.banner }}</p>
+          </div>
+        </ng-container>
+        <ng-template #nolocation>
+          <div class="chip-user-item">
+            <p>No banner</p>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</button>

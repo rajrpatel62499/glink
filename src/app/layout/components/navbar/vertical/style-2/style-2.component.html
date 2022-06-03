@@ -1,0 +1,56 @@
+<div
+  class="navbar-header"
+  fxLayout="column"
+  fxLayoutAlign="space-evenly stretch"
+  [ngClass]="fuseConfig.layout.navbar.secondaryBackground"
+>
+  <div
+    class="logo mt-8"
+    fxLayout="column"
+    fxLayoutAlign="center stretch"
+    (click)="toggleSidebarOpened()"
+  >
+    <div class="mt-8" fxLayout="row" fxLayoutAlign="center stretch">
+      <img class="logo-icon" src="{{ logoUrl }}" />
+    </div>
+
+    <div  fxLayout="row"
+    fxLayoutAlign="flex-end stretch"><img class="logo-icon" src="{{ subLogoUrl }}" /></div>
+
+    <!-- <img
+      class="logo-icon"
+      src="{{logoUrl}}"
+    /> -->
+    <!-- <img
+      class="logo-icon"
+      src="{{logoUrl}}"
+    /> -->
+  </div>
+
+  <!-- <button
+    mat-icon-button
+    class="toggle-sidebar-folded"
+    (click)="toggleSidebarFolded()"
+    fxHide.lt-lg
+  >
+    <mat-icon>menu</mat-icon>
+  </button> -->
+
+  <button
+    mat-icon-button
+    class="toggle-sidebar-opened"
+    (click)="toggleSidebarOpened()"
+    fxHide.gt-md
+  >
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+</div>
+
+<div
+  class="navbar-content"
+  fusePerfectScrollbar
+  [fusePerfectScrollbarOptions]="{ suppressScrollX: true }"
+  [ngClass]="fuseConfig.layout.navbar.primaryBackground"
+>
+  <fuse-navigation layout="vertical"></fuse-navigation>
+</div>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <title>Create Client template</title>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </head>
+    <body>
+      <div style="margin: auto; width: 50%; padding: 10px; text-align: center">
+        <div style="padding: 0 0 15px 0">
+          <h1>NOUVEAU CLIENT CRÉÉ!</h1>
+          <p style="margin: 5px auto 5px auto">
+            Veuillez trouver ci-dessous les informations concernant le nouveau
+            client.
+          </p>
+        </div>
+        <div style="padding: 0 0 20px 0">
+          <p style="margin: 0px auto 5px auto">Environnement</p>
+          <p style="margin: 0px auto 5px auto"><strong>${item.environment}</strong></p>
+        </div>
+        <div style="padding: 0 0 20px 0">
+          <p style="margin: 0px auto 5px auto">Bannière</p>
+          <p style="margin: 0px auto 5px auto"><strong>${item.banner}</strong></p>
+        </div>
+        <div style="padding: 0 0 20px 0">
+          <p style="margin: 0px auto 5px auto">Nom</p>
+          <p style="margin: 0px auto 5px auto"><strong>${item.name}</strong></p>
+        </div>
+      </div>
+  
+      <div style="margin: auto; width: 50%; padding: 10px; text-align: center">
+        <div style="padding: 0 0 15px 0">
+          <h1>NEW CUSTOMER CREATED!</h1>
+          <p style="margin: 5px auto 5px auto">
+            Please find below the information about the new client.
+          </p>
+        </div>
+        <div style="padding: 0 0 20px 0">
+          <p style="margin: 0px auto 5px auto">Environment</p>
+          <p style="margin: 0px auto 5px auto"><strong>${item.environment}</strong></p>
+        </div>
+        <div style="padding: 0 0 20px 0">
+          <p style="margin: 0px auto 5px auto">Banner</p>
+          <p style="margin: 0px auto 5px auto"><strong>${item.banner}</strong></p>
+        </div>
+        <div style="padding: 0 0 20px 0">
+          <p style="margin: 0px auto 5px auto">Name</p>
+          <p style="margin: 0px auto 5px auto"><strong>${item.name}</strong></p>
+        </div>
+      </div>
+    </body>
+  </html>

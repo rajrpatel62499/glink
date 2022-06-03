@@ -1,0 +1,42 @@
+@import 'src/@fuse/scss/fuse';
+
+figma-figmas {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  .sidenav-header {
+    mat-toolbar {
+      mat-toolbar-row {
+        background-color: white;
+      }
+
+      .avatar-wrapper {
+        .avatar,
+        .status {
+          cursor: pointer;
+        }
+      }
+
+      .schedule-search-bar {
+        background-color: red;
+      }
+    }
+  }
+
+  .sidenav-content {
+    margin-top: 3rem;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+
+    .contact-list,
+    .no-results-message {
+      position: absolute;
+      width: 100%;
+      height: 88px;
+      padding: 16px;
+      font-size: 15px;
+      font-weight: 400;
+    }
+  }
+}

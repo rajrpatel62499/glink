@@ -1,0 +1,25 @@
+<mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+  <mat-label translate>{{ label | translate}}</mat-label>
+  <input
+    type="text"
+    placeholder="{{ placeholder | translate }}"
+    aria-label="Number"
+    matInput
+    [formControl]="control"
+    [matAutocomplete]="optionsAuto"
+    [required]="required"
+    name="autocomplete"
+  />
+  <mat-autocomplete
+    autoActiveFirstOption
+    #optionsAuto="matAutocomplete"
+    [displayWith]="displayWithFn"
+  >
+    <mat-option *ngFor="let option of filteredOptions | async" 
+    [value]="option">
+      {{ option.viewValue | translate }}
+    </mat-option>
+  </mat-autocomplete>
+  <mat-error *ngIf="control.hasError('notInclude')">{{errorMsg | translate}}</mat-error>
+
+</mat-form-field>

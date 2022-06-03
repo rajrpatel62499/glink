@@ -1,0 +1,170 @@
+<!-- BOARDS -->
+<div
+  id="boards"
+  class="fuse-navy"
+  fxLayout="column"
+  fxLayoutAlign="start left"
+  fxFlex
+  fusePerfectScrollbar
+  *ngIf="!selectedItem.detail || selectedItem.detail === ''"
+>
+  <div
+    class="header pl-32 pt-8"
+    fxLayout="row"
+    fxLayoutAlign="start center"
+    fxFlex="0 0 auto"
+    [@animate]="{ value: '*', params: { delay: '100ms' } }"
+  >
+    <h1 translate>COMMON.CLIENTS</h1>
+  </div>
+
+  <!-- BOARD LIST -->
+  <div
+    class="board-list"
+    fxFlex="1 0 auto"
+    fxLayout="row wrap"
+    fxLayoutAlign="start left"
+    [@animateStagger]="{ value: '50' }"
+  >
+    <!-- banner list-->
+    <div
+      class="board-list-item"
+      [ngClass]="bannerSelections.length === 0 ? 'add-new-board' : ''"
+      fxLayout="column"
+      fxLayoutAlign="start top"
+      [@animate]="{ value: '*', params: { y: '100%' } }"
+    >
+      <div class="actions mb-12" fxLayout="row" fxLayoutAlign="end center">
+        <div class="p-6">
+          <button
+            mat-icon-button
+            [ngClass]="
+              !!selectedItem.banner
+                ? 'green-300-bg primary-50-fg'
+                : 'light-green-300-bg primary-50-fg'
+            "
+            aria-label="Palette"
+            (click)="onClickEditBanner($event)"
+          >
+            <mat-icon class="s-20">edit</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="search-wrapper" fxFlex fxLayout="row" fxLayoutAlign="start top">
+        <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
+          <mat-icon class="s-24 secondary-text">search</mat-icon>
+          <input [formControl]="searchInputBanner" type="text" placeholder="{{'COMMON.SEARCH_PLACEHOLDER' | translate}}" fxFlex />
+        </div>
+      </div>
+      <div class="board-name">
+        <div *ngFor="let item of bannerSelections | keyvalue">
+          <div
+            *ngIf="item.key !== ''"
+            hover-class="accent-300"
+            class="chip"
+            [ngClass]="selectedItem.banner === item.key ? 'accent-100' : 'notselected'"
+            (click)="onClickBanner(item.key)"
+          >
+            <div class="tag">
+              <mat-icon>label</mat-icon>
+            </div>
+            <div class="right">{{ item.key | titlecase }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- client llist -->
+    <div
+      class="board-list-item"
+      [ngClass]="!selectedItem.banner || selectedItem.banner === '' ? 'add-new-board' : ''"
+      fxLayout="column"
+      fxLayoutAlign="start top"
+      [@animate]="{ value: '*', params: { y: '100%' } }"
+    >
+      <div class="actions mb-12" fxLayout="row" fxLayoutAlign="end center">
+        <div class="p-6 mr-8">
+          <button
+            mat-icon-button
+            [ngClass]="
+              !!selectedItem.client
+                ? 'green-300-bg primary-50-fg'
+                : 'light-green-300-bg primary-50-fg'
+            "
+            aria-label="Palette"
+            (click)="onClickAddClient($event)"
+          >
+            <mat-icon class="s-20">add</mat-icon>
+          </button>
+        </div>
+
+        <div class="p-6">
+          <button
+            mat-icon-button
+            [ngClass]="
+              !!selectedItem.client
+                ? 'green-300-bg primary-50-fg'
+                : 'light-green-300-bg primary-50-fg'
+            "
+            aria-label="Palette"
+            (click)="onClickEditClient($event)"
+          >
+            <mat-icon class="s-20">edit</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="search-wrapper" fxFlex fxLayout="row" fxLayoutAlign="start top">
+        <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
+          <mat-icon class="s-24 secondary-text">search</mat-icon>
+          <input [formControl]="searchInputClient" type="text" placeholder="{{'COMMON.SEARCH_PLACEHOLDER' | translate}}" fxFlex />
+        </div>
+      </div>
+      <div class="board-name">
+        <div *ngFor="let item of clientSelections">
+          <div
+          hover-class="accent-300"
+            class="chip"
+            [ngClass]="
+              !!selectedItem.client && selectedItem.client._id === item._id ? 'accent-100' : 'notselected'
+            "
+            (click)="onClickClient(item)"
+          >
+            <div class="tag">
+              <mat-icon>label</mat-icon>
+            </div>
+            <div class="right">
+              {{
+                !!item.locations && item.locations.length > 0 && item.locations[0].name
+                  ? item.locations[0].name
+                  : ''
+              }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- detail list -->
+    <div
+      class="board-list-item"
+      [ngClass]="!selectedItem.client || selectedItem.client.name === '' ? 'add-new-board' : ''"
+      fxLayout="column"
+      fxLayoutAlign="start top"
+      [@animate]="{ value: '*', params: { y: '100%' } }"
+    >
+      <div *ngIf="!!selectedItem.client && selectedItem.client.name !== ''" class="board-name">
+        <div *ngFor="let item of detailSelections">
+          <div hover-class="accent-300" class="chip notselected" (click)="onClickDetail(item)">
+            <div class="tag">
+              <mat-icon>label</mat-icon>
+            </div>
+            <div class="right">{{ item | translate}} </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- / BOARD LIST -->
+</div>

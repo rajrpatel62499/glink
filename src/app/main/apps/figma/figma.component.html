@@ -1,0 +1,51 @@
+<div id="figma" class="page-layout carded fullwidth inner-scroll">
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg white"></div>
+  <!-- / TOP BACKGROUND -->
+
+  <!-- CENTER -->
+  <div class="center">
+    <!-- HEADER -->
+    <app-figma-header [header]="header"></app-figma-header>
+    <!-- HEADER -->
+
+    <!-- CONTENT CARD -->
+    <div class="content-card">
+      <mat-sidenav-container>
+        <!-- LEFT SIDENAV main+left-drawer-->
+        <mat-sidenav
+          class="sidenav"
+          position="start"
+          opened="true"
+          mode="side"
+          fuseMatSidenavHelper="figma-left"
+          matIsLockedOpen="gt-md"
+        >
+          <figma-left></figma-left>
+        </mat-sidenav>
+        <!-- / LEFT SIDENAV -->
+
+        <!-- CONTENT empty -->
+        <figma-start *ngIf="!selectedFigma"></figma-start>
+
+        <!-- CONTENT not empty -->
+        <figma-detail *ngIf="selectedFigma"></figma-detail>
+        <!-- / CONTENT -->
+
+        <!-- RIGHT SIDENAV right-drawer-->
+        <mat-sidenav
+          class="sidenav hello"
+          position="end"
+          opened="true"
+          mode="over"
+          fuseMatSidenavHelper="figma-right"
+        >
+          <figma-right></figma-right>
+        </mat-sidenav>
+        <!-- / RIGHT SIDENAV -->
+      </mat-sidenav-container>
+    </div>
+    <!-- / CONTENT CARD -->
+  </div>
+  <!-- / CENTER -->
+</div>

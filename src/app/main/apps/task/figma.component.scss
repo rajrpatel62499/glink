@@ -1,0 +1,57 @@
+@import 'src/@fuse/scss/fuse';
+
+#figma {
+  .center {
+    background-color: #f2f7ff;
+    padding: 12px 12px 12px 12px !important;
+    margin: 0 auto;
+
+    .header {
+      position: relative;
+      height: 90px !important;
+      min-height: 90px !important;
+      max-height: 90px !important;
+    }
+
+    @include media-breakpoint('lt-lg') {
+      padding: 0 !important;
+    }
+
+    .content-card {
+      position: relative;
+      display: flex;
+      flex: 1;
+      border-radius: 12px;
+
+      .mat-sidenav-container {
+        display: flex;
+        flex: 1;
+        width: 100%;
+
+        > .mat-sidenav-content,
+        > .mat-drawer-content {
+          display: flex;
+          flex: 1 1 auto;
+          min-height: 100%;
+          height: auto;
+        }
+
+        > .mat-drawer-content {
+          max-width: 100%;
+        }
+
+        mat-sidenav {
+          display: flex;
+          flex-direction: column;
+          width: 60%;
+          max-width: 90%;
+          overflow: hidden;
+        }
+      }
+    }
+  }
+
+  .custom-drawer {
+    background-color: yellow !important;
+  }
+}

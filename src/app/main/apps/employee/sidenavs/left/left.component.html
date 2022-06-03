@@ -1,0 +1,6 @@
+<div [ngSwitch]="view" class="views">
+  <figma-figmas class="view" *ngSwitchCase="'figmas'" [@slideInRight]> </figma-figmas>
+
+  <figma-left-drawer class="view" *ngSwitchCase="'user'" [@slideInLeft] fusePerfectScrollbar>
+  </figma-left-drawer>
+</div>

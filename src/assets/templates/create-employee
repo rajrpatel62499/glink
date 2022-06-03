@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Create Username and Password email template</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <div style="margin: auto; width: 50%; padding: 10px; text-align: center">
+      <div style="margin: 5px auto 20px auto">
+        <h1>Bienvenue, Nouvel Utilisateur!</h1>
+        <p style="margin: 5px auto 5px auto">
+          Utilisez ces informations pour vous connecter à votre compte.
+        </p>
+      </div>
+      <div style="padding: 0 0 20px 0">
+        <p style="margin: 0px auto 5px auto">Votre nom d'utilisateur :</p>
+        <p style="margin: 0px auto 5px auto">
+          <span style="color: rgb(1 105 217); font-weight: bold">${item.name}</span>
+        </p>
+      </div>
+      <div style="padding: 0 0 20px 0">
+        <p style="margin: 0px auto 5px auto">Votre mot de passe :</p>
+        <p style="margin: 0px auto 5px auto"><strong>${item.password}</strong></p>
+      </div>
+      <div style="padding: 0 0 20px 0">
+        <p style="margin: 0px auto 5px auto">Your password:</p>
+        <p style="margin: 0px auto 5px auto"><strong>${item.environment}</strong></p>
+      </div>
+      <div>
+        <a href="https://apps.apple.com/ca/app/g-link/id1593854706">
+        <button
+          type="button"
+          style="
+            color: white;
+            background-color: rgb(1 105 217);
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+          "
+        >
+          Accéder à G-Link
+        </button>
+      </a>
+      </div>
+    </div>
+
+    <div style="margin: auto; width: 50%; padding: 10px; text-align: center">
+      <div style="margin: 5px auto 20px auto">
+        <h1>Welcome, New User!</h1>
+        <p style="margin: 5px auto 5px auto">
+          Use this information to log in to your account.
+        </p>
+      </div>
+      <div style="padding: 0 0 20px 0">
+        <p style="margin: 0px auto 5px auto">Your username:</p>
+        <p style="margin: 0px auto 5px auto">
+          <span style="color: rgb(1 105 217); font-weight: bold">${item.name}</span>
+        </p>
+      </div>
+      <div style="padding: 0 0 20px 0">
+        <p style="margin: 0px auto 5px auto">Your password:</p>
+        <p style="margin: 0px auto 5px auto"><strong>${item.password}</strong></p>
+      </div>
+      <div style="padding: 0 0 20px 0">
+        <p style="margin: 0px auto 5px auto">Your password:</p>
+        <p style="margin: 0px auto 5px auto"><strong>${item.environment}</strong></p>
+      </div>
+      <div>
+        <a href="https://apps.apple.com/ca/app/g-link/id1593854706">
+        <button
+          type="button"
+          style="
+            color: white;
+            background-color: rgb(1 105 217);
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+          "
+        >
+        Access to G-Link
+        </button>
+      </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

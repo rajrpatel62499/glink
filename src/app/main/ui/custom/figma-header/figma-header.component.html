@@ -1,0 +1,24 @@
+<div  class="header white pl-pr-24" fxLayout="column" fxLayoutAlign="center start">
+  <div
+    class="breadcrumb text-truncate h1"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+    [@animate]="{ value: '*', params: { x: '50px' } }"
+  >
+    <div  class="right-side mr-24">
+      <button *ngIf="!!header && !!header.path && !!header.subpath" mat-icon-button class="" (click)="onClickBack()">
+        <mat-icon class="s-40">arrow_back</mat-icon>
+      </button>
+    </div>
+    <div
+      fxLayout="column"
+      fxLayoutAlign="start start"
+      [@animate]="{ value: '*', params: { delay: '100ms', x: '-25px' } }"
+    >
+      <div *ngIf="!!header && !!header.title" class="main-title">{{ header.title | translate }}</div>
+      <div class="mat-subheading-1 secondary-text">
+        <span *ngIf="!!header && !!header.path && !!header.subpath">{{ header.path | translate }} / {{ header.subpath | translate }}</span>
+      </div>
+    </div>
+  </div>
+</div>

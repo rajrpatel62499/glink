@@ -1,0 +1,35 @@
+.chip-empty {
+    // background-color: green;
+    // margin: 1rem 0 0 0;
+    padding: 0;
+    height: 9rem;
+    border-radius: 5px;
+    width: 100%;
+    background-color: #ffffff;
+    box-shadow: 3px 3px 10px lightgrey;
+    transition: box-shadow 150ms ease-in;
+
+    display: flex;
+    align-items: center;
+    justify-content: start;
+
+    .name {
+      margin-left: 1rem;
+      color: #9c9e9f;
+      font-weight: 500;
+      width: 50%;
+      display: flex;
+      justify-content: space-evenly;
+      flex-direction: column;
+      align-items: flex-start; // child
+
+      padding-left: 1rem;
+
+      .title {
+        font-weight: 500;
+        font-size: 1.5rem;
+        color: black;
+      }
+    }
+
+  }

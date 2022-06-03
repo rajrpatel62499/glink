@@ -1,0 +1,31 @@
+@import 'src/@fuse/scss/fuse';
+
+#product {
+  #privacy-agreement-form-wrapper {
+    flex: 1 0 auto;
+    padding: 32px;
+
+    @include media-breakpoint('xs') {
+      padding: 1rem;
+    }
+
+    #privacy-agreement-form {
+      background-color: white !important;
+
+      @include media-breakpoint('xs') {
+        width: 100%;
+      }
+
+      .top {
+        width: 100%;
+        padding: 0 3rem 0 3rem;
+
+        .subtitle {
+          p {
+            font-size: 1.5rem;
+          }
+        }
+      }
+    }
+  }
+}

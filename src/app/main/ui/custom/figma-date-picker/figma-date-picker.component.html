@@ -1,0 +1,14 @@
+<mat-form-field appearance="fill" >
+    <mat-label>{{'COMMON.DATE_RANGE'|translate}}</mat-label>
+    <mat-date-range-input [required]="required" [formGroup]="range" [rangePicker]="picker" >
+      <input matStartDate formControlName="start" placeholder="Start date">
+      <input matEndDate formControlName="end" placeholder="End date" (dateChange)="onEndDateChange()">
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker panelClass="custom-datepicker"(closed)="onClose()" ></mat-date-range-picker>
+  
+    <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+    <mat-error *ngIf="range.controls.start.hasError('required')">Start date required</mat-error>
+    <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+    <mat-error *ngIf="range.controls.end.hasError('required')">End date required</mat-error>
+  </mat-form-field>

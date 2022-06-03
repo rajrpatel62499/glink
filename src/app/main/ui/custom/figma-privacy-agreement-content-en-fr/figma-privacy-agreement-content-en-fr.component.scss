@@ -1,0 +1,27 @@
+@import 'src/@fuse/scss/fuse';
+
+.maintitle {
+  font-size: 20px;
+  margin: 16px 0px 16px 0px;
+  font-weight: bolder;
+  color: black;
+  text-align: center;
+}
+
+.title {
+  font-size: 1.2rem;
+  margin: 1.4rem 0rem 0rem 0rem;
+  font-weight: bolder;
+  color: black;
+  text-align: left;
+}
+
+.subtitle {
+  p {
+    margin-right: 3px;
+
+    .agreement {
+      font-weight: bold;
+    }
+  }
+}

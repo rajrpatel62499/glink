@@ -1,0 +1,17 @@
+<div id="privacy-agreement" fxLayout="column">
+  <div id="privacy-agreement-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+    <div
+      id="privacy-agreement-form"
+      [@animate]="{ value: '*', params: { duration: '300ms', y: '100px' } }"
+    >
+    <div class="top">
+      <div class="logo">
+        <img src="{{ logoUrl }}" />
+      </div>
+      <app-figma-privacy-agreement-content-en-fr></app-figma-privacy-agreement-content-en-fr>
+
+      <app-figma-privacy-agreement-button></app-figma-privacy-agreement-button>
+    </div>
+  </div>
+</div>
+</div>

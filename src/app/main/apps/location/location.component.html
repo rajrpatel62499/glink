@@ -1,0 +1,61 @@
+<div id="location" class="page-layout carded left-sidebar inner-scroll">
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg accent"></div>
+  <!-- / TOP BACKGROUND -->
+
+  <!-- SIDEBAR -->
+  <fuse-sidebar class="sidebar" name="location-main-sidebar" position="left" lockedOpen="gt-md">
+    <location-main-sidebar></location-main-sidebar>
+  </fuse-sidebar>
+  <!-- / SIDEBAR -->
+
+  <!-- CENTER -->
+  <div class="center">
+    <!-- CONTENT HEADER -->
+    <div class="header" fxLayout="row" fxLayoutAlign="start center">
+      <div class="search-wrapper" fxFlex fxLayout="row" fxLayoutAlign="start center">
+        <button
+          mat-icon-button
+          class="sidebar-toggle"
+          fxHide.gt-md
+          (click)="toggleSidebar('location-main-sidebar')"
+        >
+          <mat-icon>menu</mat-icon>
+        </button>
+
+        <div class="search" fxLayout="row" fxLayoutAlign="start center">
+          <mat-icon class="secondary-text">search</mat-icon>
+          <input [formControl]="searchInput" placeholder="Rechercher" fxFlex />
+        </div>
+      </div>
+    </div>
+    <!-- / CONTENT HEADER -->
+
+    <!-- CONTENT CARD -->
+    <div class="content-card" [ngClass]="{ 'current-location-selected': currentLocation }">
+      <!-- CONTENT TOOLBAR -->
+      <div class="toolbar px-24 py-8">
+        <div class="location-selection" fxFlex="row" fxLayoutAlign="start center">
+          <h5>Sélectionnez un élément pour afficher plus de détails.</h5>
+        </div>
+
+        <div *ngIf="currentLocation" fxHide.gt-lg>
+          <button mat-icon-button (click)="deselectCurrentLocation()">
+            <mat-icon class="secondary-text">arrow_back</mat-icon>
+          </button>
+          <span>Back to location list</span>
+        </div>
+      </div>
+      <!-- / CONTENT TOOLBAR -->
+
+      <!-- CONTENT -->
+      <div class="content" fxFlexAlign="row">
+        <location-list fusePerfectScrollbar fxFlex></location-list>
+        <location-details fusePerfectScrollbar fxFlex></location-details>
+      </div>
+      <!-- / CONTENT -->
+    </div>
+    <!-- / CONTENT CARD -->
+  </div>
+  <!-- / CENTER -->
+</div>

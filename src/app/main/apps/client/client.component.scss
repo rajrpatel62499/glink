@@ -1,0 +1,158 @@
+@import 'src/@fuse/scss/fuse';
+
+client {
+  min-height: 100%;
+
+  #boards {
+    width: 100%;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+
+    .header {
+      background-color: #f2f7ff;
+      h1 {
+        font-size: 3rem;
+        font-weight: bolder;
+        color: black;
+      }
+    }
+
+    .board-list {
+      padding: 0px 5px 32px 5px;
+      background-color: #f2f7ff;
+      overflow: none;
+      height: 90%;
+
+      .board-list-item {
+        min-width: 310px;
+        width: 310px;
+        height: 100%;
+        overflow: auto;
+        padding: 24px 15px;
+        margin: 0 0 0 1rem;
+        border-radius: 8px;
+        background-color: #ffffff;
+        transition: box-shadow 150ms ease-in;
+        display: flex;
+
+        &:hover:not(.add-new-board) {
+          @include mat-elevation(8);
+        }
+
+        &.add-new-board {
+          background: rgba(0, 0, 0, 0.06);
+          border: 2px dashed lightblue;
+        }
+
+        .search-wrapper {
+          height: 35px;
+          max-height: 35px;
+          margin-bottom: 2rem;
+
+          .search {
+            height: 50px;
+            line-height: 50px;
+            padding: 8px;
+            font-size: 13px;
+            border-radius: 5px;
+            border: 1px solid;
+            overflow: hidden;
+            background-color: #f2f7ff;
+            border: 1px solid lightblue;
+
+            .mat-icon {
+              margin: 0;
+            }
+
+            input {
+              padding: 0 12px 0 8px;
+              height: 36px;
+              border: none;
+              background-color: #f2f7ff;
+              color: darkgray;
+              font-size: 1.5rem;
+            }
+
+            .secondary-text {
+              color: darkgray !important;
+            }
+          }
+        }
+
+        .board-name {
+          font-size: 16px;
+          text-align: center;
+          flex: 1 1 auto;
+
+          .chip {
+            margin: 1rem 0 0 0;
+            padding: 0;
+            height: 6rem;
+            border-radius: 5px;
+            width: 100%;
+            background-color: #f2f7ff;
+
+            display: flex;
+            align-items: center;
+            justify-content: start;
+
+            .tag {
+              font-size: 11px;
+              border-radius: 2px;
+              margin: 4px 4px 0 0;
+              padding: 3px 8px;
+
+              .tag-color {
+                width: 8px;
+                height: 8px;
+                margin-right: 8px;
+                border-radius: 50%;
+              }
+
+             /*  mat-icon {
+                color: #9c9e9f;
+              } */
+            }
+
+            .right {
+              margin-left: 1rem;
+              //color: #9c9e9f;
+              font-weight: 500;
+              // flex
+              text-align: left;
+              text-justify: inter-word;
+            }
+          }
+
+          /* .hovered {
+            background-color: #d1dfeb;
+
+            .tag {
+              mat-icon {
+                color: white;
+              }
+            }
+
+            .right {
+              color: white;
+            }
+          } */
+
+           .notselected {
+            //background-color: #AA4A44;
+
+            .tag {
+              mat-icon {
+                color: #9c9e9f;
+              }
+            }
+
+            .right {
+              color: #9c9e9f;
+            }
+          } 
+        }
+      }
+    }
+  }
+}

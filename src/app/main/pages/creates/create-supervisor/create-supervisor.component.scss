@@ -1,0 +1,87 @@
+#product {
+  .center {
+    background-color: #f2f7ff; //figma
+  }
+
+  .header {
+    background-color: #f2f7ff; //figma
+
+    .h2 {
+      font-size: 3rem;
+      font-weight: bolder;
+      color: black;
+    }
+
+    .product-image {
+      overflow: hidden;
+      width: 56px;
+      min-width: 56px;
+      max-width: 56px;
+      height: 56px;
+      min-height: 56px;
+      max-height: 56px;
+      border-radius: 4px;
+
+      img {
+        height: 100%;
+        width: auto;
+        max-width: none;
+      }
+    }
+
+    .subtitle {
+      margin: 6px 0 0 0;
+    }
+  }
+
+  .content {
+    flex-direction: column;
+
+    .mat-tab-group,
+    .mat-tab-body-wrapper,
+    .tab-content {
+      flex: 1 1 auto;
+      max-width: 100%;
+    }
+
+    .mat-tab-body-content {
+      display: flex;
+    }
+
+    .mat-tab-label {
+      height: 64px;
+    }
+
+    .product-image {
+      overflow: hidden;
+      width: 128px;
+      height: 128px;
+      margin-right: 16px;
+      margin-bottom: 16px;
+      border-radius: 4px;
+
+      img {
+        height: 100%;
+        width: auto;
+        max-width: none;
+      }
+    }
+
+    // Temporary prefix alignment fix
+    .mat-form-field-appearance-outline .mat-form-field-prefix,
+    .mat-form-field-appearance-outline .mat-form-field-suffix {
+      top: 0;
+    }
+  }
+}
+
+.dates {
+  .mat-form-field {
+    //   width: auto !important;
+    margin: 0rem 1rem 0rem 1rem;
+  }
+}
+
+.error {
+  margin-left: 3rem;
+}

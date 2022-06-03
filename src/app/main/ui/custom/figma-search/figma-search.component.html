@@ -1,0 +1,43 @@
+<!-- <div class="search-wrapper" fxFlex fxLayout="row" fxLayoutAlign="start top">
+    <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
+      <mat-icon class="s-24 secondary-text">search</mat-icon>
+      <input [formControl]="searchInput" type="text" placeholder="Rechercher" fxFlex />
+    </div>
+  </div> -->
+
+<div
+  class="contact"
+  ngClass="{'unread':contact.unread}"
+  [@animate]="{ value: '*', params: { y: '100%' } }"
+>
+  <div fxLayout="row" fxLayoutAlign="start center">
+    <!-- <div class="avatar-wrapper" fxFlex="0 1 auto" fxLayoutAlign="center center">
+        <mat-icon>label</mat-icon>
+      </div> -->
+
+    <div fxLayout="row" fxFlex>
+      <!-- <div
+        class="pr-4 ml-24 chip-schedule-item"
+        fxFlex
+        fxLayout="column"
+        fxLayoutAlign="center start"
+      >
+        <p>Name</p>
+      </div> -->
+
+      <div class="chip-task-item" fxFill fxLayout="column">
+        <div class="search-wrapper" fxFill fxLayout="row" fxLayoutAlign="start top">
+          <div class="search pl-24" fxFlex fxLayout="row" fxLayoutAlign="start center">
+            <mat-icon class="s-24 secondary-text">search</mat-icon>
+            <input
+              [formControl]="searchInput"
+              type="text"
+              placeholder="{{ 'COMMON.SEARCH_PLACEHOLDER' | translate }}"
+              fxFlex
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

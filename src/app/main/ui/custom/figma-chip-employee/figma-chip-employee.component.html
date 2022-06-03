@@ -1,0 +1,43 @@
+<button
+  mat-button
+  class="contact"
+  ngClass="{'unread':contact.unread}"
+  [@animate]="{ value: '*', params: { y: '100%' } }"
+>
+  <div fxLayout="row" fxLayoutAlign="start center">
+    <div class="avatar-wrapper" fxFlex="0 1 auto" fxLayoutAlign="center center">
+      <mat-icon>label</mat-icon>
+    </div>
+
+    <div fxLayout="row" fxFlex>
+      <div class="pr-4 ml-24" fxFlex fxLayout="column" fxLayoutAlign="center start">
+        <div class="contact-name">{{ item.first }} {{ item.last }}</div>
+        <div class="title-type">{{ item.matricule }}</div>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="end end" class="right-item">
+        <ng-container *ngFor="let time of times; index as i">
+          <ng-container
+            [ngTemplateOutlet]="time.timeStart !== '' && time.timeEnd !== '' ? working : off"
+            [ngTemplateOutletContext]="{ time: time, index: i }"
+          >
+          </ng-container>
+        </ng-container>
+        <ng-template #working let-time="time" let-index="index">
+          <div *ngIf="time.timeStart !== '' && time.timeEnd !== ''; else dayoffBlock" class="accent-100 chip-employee-item">
+            <p>{{ days[index] |translate }}</p>
+            <p>{{ time.timeStart }}-{{ time.timeEnd }}</p>
+            <p *ngIf="time.timeStartSub !== '' && time.timeEndSub !== ''">{{ time.timeStartSub }}-{{ time.timeEndSub }}</p>
+          </div>
+        </ng-template>
+
+        <ng-template #off let-time="time" let-index="index">
+          <div class="accent-50 chip-employee-item">
+            <p>{{ days[index] | translate}}</p>
+            <p class="off">OFF</p>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</button>

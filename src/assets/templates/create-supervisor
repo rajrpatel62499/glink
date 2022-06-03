@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Create Supervisor template</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		
+	</head>
+	<body>
+		<div style="margin: auto; width: 50%; padding: 10px; text-align: center">
+			<div style="padding: 0 0 15px 0">
+				<h1>NOUVEAU SUPERVISEUR CRÉÉ!</h1>
+				<p style="margin: 5px auto 5px auto">
+					Veuillez trouver ci-dessous les informations concernant le nouveau
+					superviseur
+				</p>
+			</div>
+			<div style="padding: 0 0 20px 0">
+				<p style="margin: 0px auto 5px auto">Environnement</p>
+				<p style="margin: 0px auto 5px auto"><strong>${item.environment}</strong></p>
+			</div>
+			<div style="padding: 0 0 20px 0">
+				<p style="margin: 0px auto 5px auto">Prénom</p>
+				<p style="margin: 0px auto 5px auto"><strong>${item.first}</strong></p>
+			</div>
+			<div style="padding: 0 0 20px 0">
+				<p style="margin: 0px auto 5px auto">Nom de famille</p>
+				<p style="margin: 0px auto 5px auto"><strong>${item.last}</strong></p>
+			</div>
+		</div>
+
+		<div style="margin: auto; width: 50%; padding: 10px; text-align: center">
+			<div style="padding: 0 0 15px 0">
+				<h1>NEW SUPERVISOR CREATED!</h1>
+				<p style="margin: 5px auto 5px auto">
+					Please find below information about the new
+					supervisor.
+				</p>
+			</div>
+			<div style="padding: 0 0 20px 0">
+				<p style="margin: 0px auto 5px auto">Environment</p>
+				<p style="margin: 0px auto 5px auto"><strong>${item.environment}</strong></p>
+			</div>
+			<div style="padding: 0 0 20px 0">
+				<p style="margin: 0px auto 5px auto">First name</p>
+				<p style="margin: 0px auto 5px auto"><strong>${item.first}</strong></p>
+			</div>
+			<div style="padding: 0 0 20px 0">
+				<p style="margin: 0px auto 5px auto">Last name</p>
+				<p style="margin: 0px auto 5px auto"><strong>${item.last}</strong></p>
+			</div>
+		</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,67 @@
+<buttton [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger" class="trigger-btn">
+  {{ title | translate }}
+  <mat-icon *ngIf="!menuTrigger.menuOpen">expand_more</mat-icon>
+  <mat-icon *ngIf="menuTrigger.menuOpen">expand_less</mat-icon>
+</buttton>
+
+<mat-menu #menu="matMenu"  [class]="panelClass" (close)="onClose()">
+  <div>
+
+  </div>
+  <div *ngIf="config.showSearch" id="search-dropdown-wrapper" (click)="$event.stopPropagation()">
+    <mat-icon>search</mat-icon>
+    <input
+      #searchInput
+      [formControl]="search"
+      placeholder="{{ 'COMMON.SEARCH_PLACEHOLDER' | translate }}..."
+      (input)="onSearchChange(searchInput)"
+    />
+  </div>
+
+  <mat-divider *ngIf="config.showDivider"></mat-divider>
+
+  <mat-selection-list *ngIf="config.showSelection" #selectAllObj [multiple]="true">
+    <mat-list-option
+      [checkboxPosition]="'before'"
+      [selected]="selectAll"
+      (click)="onSelectAll($event)"
+    >
+      {{ (selectAll ? 'COMMON.DESELECT_ALL' : 'COMMON.SELECT_ALL') | translate }}
+    </mat-list-option>
+  </mat-selection-list>
+
+  <ng-template [ngTemplateOutlet]="itemsList"
+    [ngTemplateOutletContext]="{ listType: config.showAllItemsInSingleList ? 'hideItems' : 'selectedItems' }"
+  ></ng-template>
+
+  <div *ngIf="config.showTitle" class="search-title">{{ title | translate | uppercase }}</div>
+
+  <ng-template [ngTemplateOutlet]="itemsList"
+    [ngTemplateOutletContext]="{ listType: config.showAllItemsInSingleList ? 'allItems' : 'notSelectedItems' }"
+  ></ng-template>
+</mat-menu>
+
+
+<!-- TEMPLATES -->
+<!-- it's filtering the data based on the list type is provided -->
+<ng-template #itemsList let-listType="listType">
+  <mat-selection-list [class]="selectionListClass" #list  (selectionChange)="selectionChangeMethod($event.option)">
+    <ng-container *ngFor="let item of $search | async">
+      <mat-list-option
+        *ngIf="
+        listType == 'selectedItems' ? item.selected :
+        listType == 'notSelectedItems' ? !item.selected :
+        listType == 'allItems' ? true : 
+        listType == 'hideItems' ? false : 
+        false
+         "
+        [value]="item"
+        [selected]="selectionControl.value && selectionControl.value?.indexOf(item) >= 0"
+        [checkboxPosition]="'before'"
+        (click)="onOptionClicked($event, item)"
+      >
+        {{ item.value }}
+      </mat-list-option>
+    </ng-container>
+  </mat-selection-list>
+</ng-template>

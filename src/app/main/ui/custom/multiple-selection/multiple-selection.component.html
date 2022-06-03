@@ -1,0 +1,27 @@
+<mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+  <mat-label>{{ title }}</mat-label>
+  <mat-select
+    [formControl]="itemMultiCtrl"
+    placeholder="{{ placeholder }}"
+    [multiple]="true"
+    #multiSelect
+    required
+  >
+    <mat-option>
+      <ngx-mat-select-search
+        [placeholderLabel]="'Tout sélectionner'"
+        [noEntriesFoundLabel]="null"
+        [showToggleAllCheckbox]="true"
+        [toggleAllCheckboxIndeterminate]="isIndeterminate"
+        [toggleAllCheckboxChecked]="isChecked"
+        (toggleAll)="toggleSelectAll($event)"
+        [formControl]="itemMultiFilterCtrl"
+      ></ngx-mat-select-search>
+    </mat-option>
+    <mat-option *ngFor="let item of filteredItemsMulti | async" [value]="item">
+      {{ item.name }}
+    </mat-option>
+  </mat-select>
+  <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+  <mat-error translate>COMMON.LOCATION_ERR</mat-error>
+</mat-form-field>

@@ -1,0 +1,127 @@
+<div id="figma" class="page-layout carded fullwidth inner-scroll">
+  <div class="top-bg white"></div>
+  <div class="center">
+    <app-figma-header [header]="header" (back)="onClickBack()"></app-figma-header>
+    <div class="content-card">
+      <div
+        fxLayout="row"
+        fxLayoutGap="15px"
+        fxLayoutAlign="start center"
+        class="filters-header p-16 border"
+      >
+        <div>{{ 'COMMON.FILTERED_BY' | translate }}</div>
+
+        <!-- Frequency Dropdown -->
+        <buttton [matMenuTriggerFor]="activeMenu" #menuTrigger="matMenuTrigger" class="trigger-btn">
+          {{ 'REPORTS.ACTIVE' | translate }}
+          <mat-icon *ngIf="!menuTrigger.menuOpen">expand_more</mat-icon>
+          <mat-icon *ngIf="menuTrigger.menuOpen">expand_less</mat-icon>
+        </buttton>
+
+        <mat-menu #activeMenu class="active-menu">
+          <mat-selection-list [multiple]="true" [disableRipple]="true">
+            <ng-container *ngFor="let item of activeListSelection; index as i">
+              <mat-list-option
+                [value]="item"
+                [selected]="item.selected"
+                [checkboxPosition]="'before'"
+                (click)="onClickActiveStatus(item, $event, i)"
+              >
+                {{ item.value | translate }}
+              </mat-list-option>
+            </ng-container>
+          </mat-selection-list>
+        </mat-menu>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-between" class="p-16">
+        <div fxLayout="row">
+          <div fxLayout="column">
+            <div class="time-title">{{ 'REPORTS.DEVICES_COUNT' | translate | uppercase }}</div>
+            <div class="time">{{ totalCount }}</div>
+          </div>
+        </div>
+        <!-- <div fxLayout="row" class="export">
+          <img
+            style="height: 18px"
+            class="mr-12"
+            src="assets/images/reports/export.svg"
+            alt=""
+            srcset=""
+          />
+          <div [matMenuTriggerFor]="exportOptions">{{ 'COMMON.EXPORT' | translate }}</div>
+          <mat-menu #exportOptions [class]="'custom-mat-menu-items'">
+            <button mat-menu-item (click)="download('pdf')">
+              {{ 'COMMON.DOWNLOAD' | translate }} PDF
+            </button>
+            <button mat-menu-item (click)="download('csv')">
+              {{ 'COMMON.DOWNLOAD' | translate }} CSV
+            </button>
+            <button mat-menu-item (click)="download('excel')">
+              {{ 'COMMON.DOWNLOAD' | translate }} Excel
+            </button>
+          </mat-menu>
+        </div> -->
+      </div>
+
+      <div class="breakdown-of-hours">
+        {{ 'REPORTS.DEVICE_LIST' | translate }}
+      </div>
+
+      <ngx-datatable
+        id="employee-table"
+        style="top: 10px; box-shadow: none"
+        class="material"
+        [rows]="filterdRows"
+        [columns]="columns"
+        [columnMode]="ColumnMode.force"
+        [headerHeight]="headerHeight"
+        [rowHeight]="'auto'"
+        [footerHeight]="footerHeight"
+        [externalSorting]="true"
+        [loadingIndicator]="loadingIndicator"
+        (scroll)="onScroll($event)"
+        (sort)="onSort($event)"
+      >
+        <ngx-datatable-column [name]="'COMMON.NAME'|translate|uppercase" >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <span>{{ row?.deviceName }}</span>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column [name]="'COMMON.LAST_UPDATE'|translate|uppercase" >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <span>{{ row?.lastReportedFriendlyDate ? row.lastReportedFriendlyDate : '-' }}</span>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column [name]="'COMMON.COMPLIANCE'|translate|uppercase">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <span>
+              <img
+                [src]="
+                  row?.compliant
+                    ? 'assets/images/reports/active.svg'
+                    : 'assets/images/reports/deactive.svg'
+                "
+                alt=""
+              />
+            </span>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column [name]="'COMMON.BATTERY'|translate|uppercase">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <span> {{ row?.batteryLevel }}% </span>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="VERSION">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <span> {{ row?.appVersion }}</span>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+</div>

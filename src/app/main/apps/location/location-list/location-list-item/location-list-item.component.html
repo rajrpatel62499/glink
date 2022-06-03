@@ -1,0 +1,51 @@
+<div fxLayout="row" fxLayoutAlign="start center">
+  <mat-icon class="handle mr-16" ngxDragHandle fxFlex="0 1 auto" fxHide.xs>
+    location_city
+  </mat-icon>
+  <div fxLayout="row" fxLayoutAlign="start center" fxFlex>
+    <div class="info" fxFlex fxFlexLayout="column">
+      <div class="title">
+        <span>{{ location.name | uppercase }}</span>
+      </div>
+
+      <div class="notes">
+        {{ location.address }}
+      </div>
+    </div>
+
+    <!--middle-->
+    <div class="info" fxFlex fxFlexLayout="column">
+      <div class="tag" fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon [ngStyle]="{ color: location.tags[0].color }">label</mat-icon>
+        <span></span>
+        <span class="text-capitalize">{{ location.tags[0].title }}</span>
+      </div>
+    </div>
+    <!--middle-->
+
+    <!-- <div class="actions" fxLayout="row" fxLayoutAlign="start center">
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="moreMenu"
+        aria-label="More"
+        (click)="$event.stopPropagation()"
+        fxHide.xs
+      >
+        <mat-icon class="secondary-text">more_vert</mat-icon>
+      </button>
+
+      <mat-menu #moreMenu="matMenu">
+        <button mat-menu-item aria-label="toggle done" (click)="toggleCompleted($event)">
+          <ng-container *ngIf="location.completed">
+            <mat-icon>check_box</mat-icon>
+            <span>menu item (wip)</span>
+          </ng-container>
+          <ng-container *ngIf="!location.completed">
+            <mat-icon>check_box_outline_blank</mat-icon>
+            <span>menu item (wip)</span>
+          </ng-container>
+        </button>
+      </mat-menu>
+    </div> -->
+  </div>
+</div>

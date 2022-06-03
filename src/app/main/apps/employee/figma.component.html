@@ -1,0 +1,32 @@
+<div id="figma" class="page-layout carded fullwidth inner-scroll">
+  <div class="top-bg white"></div>
+  <div class="center">
+    <app-figma-header [header]="header" (back)="onClickBack()"></app-figma-header>
+    <div class="content-card">
+      <mat-sidenav-container>
+        <mat-sidenav
+          class="sidenav"
+          position="start"
+          opened="true"
+          mode="side"
+          fuseMatSidenavHelper="figma-left"
+          matIsLockedOpen="gt-md"
+        >
+          <figma-left></figma-left>
+        </mat-sidenav>
+        <figma-start *ngIf="!selectedItem"></figma-start>
+
+        <figma-detail *ngIf="selectedItem" (deselect)="onDeSelect()"></figma-detail>
+        <mat-sidenav
+          class="sidenav hello"
+          position="end"
+          opened="true"
+          mode="over"
+          fuseMatSidenavHelper="figma-right"
+        >
+          <figma-right></figma-right>
+        </mat-sidenav>
+      </mat-sidenav-container>
+    </div>
+  </div>
+</div>

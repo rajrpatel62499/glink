@@ -1,0 +1,52 @@
+/* COMMON SCSS */
+
+// overlay css
+.custom-mat-menu-items {
+  .mat-menu-content:not(:empty) {
+    padding: 0px !important;
+  }
+  .mat-menu-item {
+    height: 30px;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    &:hover:not([disabled]) {
+      background: hsl(204, 20%, 95%) !important;
+    }
+  }
+}
+
+.table-title {
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 130%;
+  letter-spacing: 0.337647px;
+  text-transform: capitalize;
+  color: #1f4d7a;
+  margin-left: 20px;
+}
+
+// General css 
+ngx-datatable {
+  .datatable-icon-up::before {
+    content: '\65' !important;
+  }
+  .datatable-icon-down::before {
+    content: '\66' !important;
+  }
+  .datatable-icon-prev:before {
+    content: '\72' !important;
+  }
+  .datatable-icon-left::before {
+    content: '\6f' !important;
+  }
+  .datatable-icon-skip::before {
+    content: '\71' !important;
+  }
+  .datatable-icon-right::before {
+    content: '\70' !important;
+  }
+  datatable-progress {
+    width: 100% !important;
+  }
+}

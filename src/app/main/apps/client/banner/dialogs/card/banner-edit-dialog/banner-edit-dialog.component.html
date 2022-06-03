@@ -1,0 +1,37 @@
+<div class="dialog-content-wrapper">
+  <mat-toolbar class="accent-100 m-0">
+    <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+      <span class="title dialog-title" translate>BANNER.BANNER_CHANGE</span>
+      <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div mat-dialog-content class="p-16 pb-0 m-0" fusePerfectScrollbar>
+    <form
+      name="eventForm"
+      [formGroup]="eventForm"
+      class="event-form w-100-p"
+      fxLayout="column"
+      fxFlex
+    >
+      <mat-form-field appearance="outline" class="w-100-p">
+        <mat-label translate>COMMON.BANNER</mat-label>
+        <input matInput name="banner" formControlName="banner" required />
+      </mat-form-field>
+    </form>
+  </div>
+
+  <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+    <button
+      mat-raised-button
+      color="accent"
+      class="save-button"
+      (click)="matDialogRef.close(eventForm)"
+      aria-label="SAVE"
+    >
+      <span translate>BANNER.MODIFY_ALL</span>
+    </button>
+  </div>
+</div>

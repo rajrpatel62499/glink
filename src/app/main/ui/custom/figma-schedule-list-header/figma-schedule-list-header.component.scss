@@ -1,0 +1,92 @@
+app-figma-schedule-list-header {
+
+  .mat-subheader {
+    padding-left: 16px;
+    font-size: 20px;
+    font-weight: 300;
+    height: 88px;
+    line-height: 88px;
+  }
+
+  .contact {
+    white-space: normal;
+    text-align: left;
+    letter-spacing: 0.01em;
+    min-height: 68px;
+    padding: 2rem 2rem 2rem 2rem;
+    margin: 0.25rem 1rem 1rem 2.5rem;
+    font-weight: 400;
+    border-radius: 0;
+    background-color: #F2F7FF!important;
+    min-width: 95%;
+    max-width: 95%;
+
+    .avatar-wrapper {
+      .avatar {
+        margin-right: 16px;
+      }
+    }
+
+    .contact-name {
+      font-size: 16px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .contact-last-message {
+      line-height: normal;
+      margin-top: 0;
+      color: #28a745;
+    }
+
+    .contact-last-message-time {
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .contact-mood {
+      line-height: normal;
+      margin: 0;
+    }
+
+    .unread-message-count {
+      font-size: 12px;
+      border-radius: 50%;
+      text-align: center;
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+    }
+
+    .title-type {
+      font-size: 1rem;
+      color: #28a745;
+    }
+  }
+
+  .right-item {
+    margin-left: 1rem;
+    font-weight: 500;
+    width: 60%;
+    .chip-schedule-item {
+      margin: 0.25rem;
+      width: 100%;
+      // width: 130px;
+      height: 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-content: center;
+      align-items: center;
+
+      font-weight: lighter;
+    }
+  }
+  p {
+    padding: 0;
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+}
